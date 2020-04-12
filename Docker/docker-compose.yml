@@ -6,7 +6,7 @@ services:
         environment:
             POSTGRES_PASSWORD: 6bB@d1M!
             POSTGRES_USER: bbadmin
-            POSTGRES_DB: BusinessBlocks
+            POSTGRES_DB: capture
         volumes:
             - ./db:/usr/src/app
         ports:
