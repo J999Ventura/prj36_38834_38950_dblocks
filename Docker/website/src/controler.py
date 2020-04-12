@@ -1,4 +1,4 @@
-from flask import render_template, Flask, flash
+from flask import render_template, Flask, flash, redirect, url_for
 from forms import RegisterForm, LoginForm
 app = Flask(__name__)
 
@@ -143,6 +143,18 @@ categories = [
     }
 ]
 
+tags = [
+    {
+        'name': 'tag1'
+    },
+    {
+        'name': 'tag2'
+    },
+    {
+        'name': 'tag3'
+    }
+]
+
 slideNews = [
     {
         'title': 'Title1',
@@ -173,12 +185,107 @@ newsOfTheDay = [
     }
 ]
 
+newProds = [
+    {
+        'name': 'name1',
+        'seller': 'seller1',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name2',
+        'seller': 'seller2',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name3',
+        'seller': 'seller3',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name4',
+        'seller': 'seller4',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name5',
+        'seller': 'seller6',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name6',
+        'seller': 'seller6',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name7',
+        'seller': 'seller7',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name8',
+        'seller': 'seller8',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name9',
+        'seller': 'seller9',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name10',
+        'seller': 'seller10',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name11',
+        'seller': 'seller11',
+        'price': '€1,00',
+        'image': 'path'
+    },
+    {
+        'name': 'name12',
+        'seller': 'seller12',
+        'price': '€1,00',
+        'image': 'path'
+    }
+]
+
+sizes = [
+    {
+        'name': '408p'
+    },
+    {
+        'name': '720p'
+    },
+    {
+        'name': '1080p'
+    },
+    {
+        'name': '2160p'
+    }
+]
+
+
 
 @app.route('/')
-@app.route('/index')
+@app.route("/index", methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 def index():
     formlog= LoginForm()
     formreg= RegisterForm()
+    if formreg.validate_on_submit():
+        flash('Check your email, to validate your account', 'success')
+        return redirect(url_for('index'))
     return render_template('index.html', title='Home',
                            categories=categories,
                            newProds=newProds,
@@ -192,18 +299,21 @@ def index():
                            )
 
 
-@app.route('/register')
-def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        flash("Account created, please Check you email!")
-    return render_template('register.html', title='Register', categories=categories, form=form)
-
-
-@app.route('/login')
-def login():
-    form = LoginForm()
-    return render_template('login.html', title='Login', categories=categories, form=form)
+@app.route("/product-grid", methods=['GET', 'POST'])
+def searchProduct():
+    formlog = LoginForm()
+    formreg = RegisterForm()
+    if formreg.validate_on_submit():
+        flash('Check your email, to validate your account', 'success')
+        return redirect(url_for('index'))
+    return render_template('product-grid.html', title='Home',
+                           categories=categories,
+                           tags=tags,
+                           sizes=sizes,
+                           allCategoryProducts=newProds,
+                           formlog=formlog,
+                           formreg=formreg
+                           )
 
 
 if __name__ == '__main__':

@@ -107,19 +107,107 @@
 
                                                     <!-- Modal body -->
                                                     <div class="modal-body">
-                                                      <div class="tab-content">
-                                                            <div class="tab-pane active" id="login">
-
-                                                            </div>
-                                                            <div class="tab-pane" id="register">
-
-                                                            </div>
-                                                      </div>
+                                                          <div class="tab-content">
+                                                                <div class="tab-pane active" id="login">
+                                                                     <form class="justify-content-center" method="POST" action="">
+                                                                         {{formlog.hidden_tag()}}
+                                                                         <fieldset class="form-group">
+                                                                             <div class="form-group">
+                                                                                 {{ formlog.email.label(class="form-control-label")}}
+                                                                                     {% if formlog.email.errors %}
+                                                                                        {{ formlog.email(class="news__input is-invalid")}}
+                                                                                        <div class="invalid-feedback">
+                                                                                            {% for error in formlog.email.erros %}
+                                                                                                <span>{{ error }}</span>
+                                                                                            {% endfor %}
+                                                                                        </div>
+                                                                                     {% else %}
+                                                                                         {{ formlog.email(class="news__input")}}
+                                                                                     {% endif %}
+                                                                             </div>
+                                                                             <div class="form-group">
+                                                                                 {{ formlog.password.label(class="form-control-label")}}
+                                                                                     {% if formlog.password.errors %}
+                                                                                        {{ formlog.password(class="news__input is-invalid")}}
+                                                                                        <div class="invalid-feedback">
+                                                                                            {% for error in formlog.password.erros %}
+                                                                                                <span>{{ error }}</span>
+                                                                                            {% endfor %}
+                                                                                        </div>
+                                                                                     {% else %}
+                                                                                         {{ formlog.password(class="news__input")}}
+                                                                                     {% endif %}
+                                                                             </div>
+                                                                         </fieldset>
+                                                                         <div class="form-group">
+                                                                                 {{ formlog.submit(class="fr__btn")}}
+                                                                         </div>
+                                                                     </form>
+                                                                </div>
+                                                                <div class="tab-pane" id="register">
+                                                                     <form class="justify-content-center" method="POST" action="">
+                                                                         {{formreg.hidden_tag()}}
+                                                                         <fieldset class="form-group">
+                                                                             <div class="form-group">
+                                                                                 {{ formreg.username.label(class="form-control-label")}}
+                                                                                     {% if formreg.username.errors %}
+                                                                                        {{ formreg.username(class="news__input is-invalid")}}
+                                                                                        <div class="invalid-feedback">
+                                                                                            {% for error in formreg.username.erros %}
+                                                                                                <span>{{ error }}</span>
+                                                                                            {% endfor %}
+                                                                                        </div>
+                                                                                     {% else %}
+                                                                                         {{ formreg.username(class="news__input")}}
+                                                                                     {% endif %}
+                                                                             </div>
+                                                                             <div class="form-group">
+                                                                                 {{ formreg.email.label(class="form-control-label")}}
+                                                                                     {% if formreg.email.errors %}
+                                                                                        {{ formreg.email(class="news__input is-invalid")}}
+                                                                                        <div class="invalid-feedback">
+                                                                                            {% for error in formreg.email.erros %}
+                                                                                                <span>{{ error }}</span>
+                                                                                            {% endfor %}
+                                                                                        </div>
+                                                                                     {% else %}
+                                                                                         {{ formreg.email(class="news__input")}}
+                                                                                     {% endif %}
+                                                                             </div>
+                                                                             <div class="form-group">
+                                                                                 {{ formreg.password.label(class="form-control-label")}}
+                                                                                     {% if formreg.password.errors %}
+                                                                                        {{ formreg.password(class="news__input is-invalid")}}
+                                                                                        <div class="invalid-feedback">
+                                                                                            {% for error in formreg.password.erros %}
+                                                                                                <span>{{ error }}</span>
+                                                                                            {% endfor %}
+                                                                                        </div>
+                                                                                     {% else %}
+                                                                                         {{ formreg.password(class="news__input")}}
+                                                                                     {% endif %}
+                                                                             </div>
+                                                                             <div class="form-group">
+                                                                                 {{ formreg.confirm_password.label(class="form-control-label")}}
+                                                                                     {% if formreg.confirm_password.errors %}
+                                                                                        {{ formreg.confirm_password(class="news__input is-invalid")}}
+                                                                                        <div class="invalid-feedback">
+                                                                                            {% for error in formreg.confirm_password.erros %}
+                                                                                                <span>{{ error }}</span>
+                                                                                            {% endfor %}
+                                                                                        </div>
+                                                                                     {% else %}
+                                                                                         {{ formreg.confirm_password(class="news__input")}}
+                                                                                     {% endif %}
+                                                                             </div>
+                                                                         </fieldset>
+                                                                         <div class="form-group">
+                                                                                 {{ formreg.submit(class="fr__btn")}}
+                                                                         </div>
+                                                                     </form>
+                                                                </div>
+                                                          </div>
                                                     </div>
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                    </div>
-
                                                   </div>
                                                 </div>
                                               </div>
@@ -212,7 +300,15 @@
             <!-- End Cart Panel -->
         </div>
 
-
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
 
 
