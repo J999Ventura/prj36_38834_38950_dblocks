@@ -1,29 +1,9 @@
 version: '3'
 
 services:
-    db:
-        build: ./db
-        environment:
-            POSTGRES_PASSWORD: 6bB@d1M!
-            POSTGRES_USER: bbadmin
-            POSTGRES_DB: capture
-        volumes:
-            - ./db:/usr/src/app
-        ports:
-            - "5000:5432"
     product-services:
         build: ./server
         volumes:
             - ./server:/usr/src/app
         ports:
             - "5001:80"
-        depends_on:
-            - db
-    website:
-        build: ./website
-        volumes:
-            - ./website:/usr/src/app
-        ports:
-            - "5002:80"
-        depends_on:
-            - product-services
