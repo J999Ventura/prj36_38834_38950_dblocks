@@ -15,6 +15,7 @@ pylint-flask-sqlalchemy = "*"
 python-dotenv = "*"
 flask-praetorian = "*"
 flask-cors = "*"
+flask-mail = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,4 +1,5 @@
-from . import db,guard
+from . import db
+from ..extensions import guard
 from .Role_model import Roles
 
 class Users(db.Model):
@@ -33,10 +34,6 @@ class Users(db.Model):
     @property
     def identity(self):
         return self.public_id
-    
-    @property
-    def hash_password(self):
-        return guard.hash_password(self.password)
 
     def is_valid(self):
         return self.is_active
