@@ -16,6 +16,7 @@ python-dotenv = "*"
 flask-praetorian = "*"
 flask-cors = "*"
 flask-mail = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
