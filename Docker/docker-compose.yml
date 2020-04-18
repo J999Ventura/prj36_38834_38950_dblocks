@@ -1,9 +1,31 @@
 version: '3'
 
 services:
+    db:
+        build: ./db
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_DB: BusinessBlocks
+        volumes:
+            - ./db:/usr/src/app
+        ports:
+            - "5100:5432"
     product-services:
         build: ./server
         volumes:
             - ./server:/usr/src/app
+        env_file:
+            - ./server/config/.env
         ports:
             - "5001:80"
+        depends_on:
+            - db
+    website:
+        build: ./website
+        volumes:
+            - ./website:/usr/src/app
+        ports:
+            - "5000:80"
+        depends_on:
+            - product-services
