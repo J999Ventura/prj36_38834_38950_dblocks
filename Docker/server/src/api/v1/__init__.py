@@ -4,10 +4,12 @@ from v1.models import db,migrate
 from .commands import create_tables,create_users,create_roles
 from .extensions import guard, mail
 from os import environ
+import config
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
     #obter o nome do ambiente (dev, prod)
+    config.init_app(app)
     environment = environ.get('FLASK_ENV') #carregar o ficheiro .env na maquina de prod antes de tudo set -a; source ~/my-project-dir/.env; set +a
     app.config.from_pyfile(environment + '.cfg') 
     app.config.from_pyfile('..\mail_config.cfg')
