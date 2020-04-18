@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker rm $(docker ps -aq)
-docker rmi $(docker images -q)
+docker rm -f $(docker ps -aq)
+docker rmi -f $(docker images -q)
