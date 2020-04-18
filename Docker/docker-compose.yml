@@ -4,17 +4,19 @@ services:
     db:
         build: ./db
         environment:
-            POSTGRES_PASSWORD: 6bB@d1M!
-            POSTGRES_USER: bbadmin
-            POSTGRES_DB: capture
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_DB: BusinessBlocks
         volumes:
             - ./db:/usr/src/app
         ports:
-            - "5000:5432"
+            - "5100:5432"
     product-services:
         build: ./server
         volumes:
             - ./server:/usr/src/app
+        env_file:
+            - ./server/config/.env
         ports:
             - "5001:80"
         depends_on:
@@ -24,6 +26,6 @@ services:
         volumes:
             - ./website:/usr/src/app
         ports:
-            - "5002:80"
+            - "5000:80"
         depends_on:
             - product-services
