@@ -1,13 +1,12 @@
-FROM python:3-onbuild
+FROM python:3.7
 
 COPY . /usr/src/app
 
-RUN pip install --upgrade pip && \ 
-pip install pipenv && \
-cd src/api && \
-pipenv install && \
-pipenv shell && \
-cd ../..
+WORKDIR /usr/src/app/src/api
 
-#CMD ["python", "flask db init && flask db migrate -m "Initial migration." && flask db upgrade"]
-CMD ["python", "src/api/app.py"]
+RUN pip install --upgrade pip && \
+    pip install pipenv && \
+	pipenv lock && \
+    pipenv install --dev --system --deploy --ignore-pipfile
+	
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
