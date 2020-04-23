@@ -75,36 +75,3 @@ CREATE TABLE users_products_favorites(
 	FOREIGN KEY (product_id) references products(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
--- perguntar ao prof se devia haver so uma tabela os duas (compras ou vendas)
---so insere aqui quando o pagamento for concluido
-CREATE TABLE transactions(
-	id serial, --devia ser este?
-	user_buyer_id int NOT NULL,
-	user_seller_id int NOT NULL,
-	product_id int NOT NULL,
-	transaction_type VARCHAR(1) NOT NULL,
-	price number NOT NULL,
-	transaction_date date NOT NULL,
-	payment_method int NOT NULL,
-	PRIMARY KEY (id) --sera esta chave suficiente ?
-	FOREIGN KEY (user_buyer_id) references users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (user_seller_id) references users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (product_id) references products(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (transaction_type) references transactions_type_ref_data(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (payment_method) references payment_methods_ref_data(id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE transactions_type_ref_data(
-	id serial,
-	type varchar (20) NOT NULL UNIQUE,
-	description (100),
-	PRIMARY KEY (id)
-)
-
-CREATE TABLE payment_methods_ref_data(
-	id serial,
-	method varchar (50) NOT NULL UNIQUE,
-	description varchar (100),
-	PRIMARY KEY (id)
-);

@@ -1,16 +1,6 @@
 version: '3'
 
-services:
-    db:
-        build: ./db
-        environment:
-            POSTGRES_PASSWORD: postgres
-            POSTGRES_USER: postgres
-            POSTGRES_DB: BusinessBlocks
-        volumes:
-            - ./db:/usr/src/app
-        ports:
-            - "5100:5432"
+services:   
     product-services:
         build: ./server
         volumes:
@@ -18,9 +8,20 @@ services:
         env_file:
             - ./server/config/.env
         ports:
-            - "5001:80"
+            - "5000:5000"
         depends_on:
-            - db
+            - cloud-sql-proxy
+            
+    cloud-sql-proxy:
+      container_name: cloudsql-proxy
+      image: gcr.io/cloudsql-docker/gce-proxy:1.11
+      command: /cloud_sql_proxy --dir=/cloudsql -instances=local-cedar-274819:us-central1:cloud-capture-db=tcp:0.0.0.0:5432 -credential_file=/secrets/cloudsql/key.json
+      ports:
+        - 5432:5432
+      volumes:
+        - ./server/config/key.json:/secrets/cloudsql/key.json
+      restart: always
+    
     website:
         build: ./website
         volumes:

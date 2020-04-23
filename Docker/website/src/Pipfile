@@ -10,6 +10,7 @@ requests = "*"
 Flask = "*"
 Flask-RESTful = "*"
 Flask-WTF = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
