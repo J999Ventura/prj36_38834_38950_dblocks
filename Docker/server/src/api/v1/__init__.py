@@ -13,7 +13,6 @@ def create_app():
     environment = environ.get('FLASK_ENV') #carregar o ficheiro .env na maquina de prod antes de tudo set -a; source ~/my-project-dir/.env; set +a
     app.config.from_pyfile(environment + '.cfg') 
     app.config.from_pyfile('..\mail_config.cfg')
-
     #routes and models
     from .routes import User_route, Api_route
     routes.init_app(app)

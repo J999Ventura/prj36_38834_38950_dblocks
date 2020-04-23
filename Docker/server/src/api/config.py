@@ -7,3 +7,4 @@ def init_app(app):
     app.config['PRAETORIAN_CONFIRMATION_SENDER'] = environ.get('PRAETORIAN_CONFIRMATION_SENDER')
     app.config['MAIL_USERNAME'] = environ.get('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = environ.get('MAIL_PASSWORD')
+    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('SQLALCHEMY_DATABASE_URI')

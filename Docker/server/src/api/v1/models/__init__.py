@@ -7,5 +7,7 @@ migrate = Migrate()
 
 def init_app(app):
     db.init_app(app)
+    #db.drop_all(app=app)
+    #db.create_all(app=app)
     migrate.init_app(app, db)
     

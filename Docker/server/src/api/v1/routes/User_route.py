@@ -60,6 +60,22 @@ def protected():
 def open():
     return jsonify({'result':'Hello'})
 
+@v1_bp.route('/users', methods=['GET'])
+def get_all_users():
+    users = Users.query.all()
+    if users:
+        output = []
+
+        for user in users:
+            user_data = {}
+            user_data['public_id']  = user.public_id
+            user_data['first_name']  = user.first_name
+            user_data['password']  = user.password
+            user_data['email']  = user.email
+            output.append(user_data)
+        return jsonify({'users': output})
+    return jsonify({'result' : 'No users found'})
+
 @v1_bp.route('/verify', methods=['GET'])
 def active():
     #testar receber como post
@@ -70,8 +86,3 @@ def active():
         db.session.commit()
         return jsonify({'result':'User is now valid'})
     return jsonify({'result':'User does not exists'})
-
-@v1_bp.route("/users",  methods=['GET'])
-def get_all_users():
-    users = [user for user in Users.query.all()]
-    return "Users"

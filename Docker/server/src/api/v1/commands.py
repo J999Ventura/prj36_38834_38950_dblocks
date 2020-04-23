@@ -4,6 +4,7 @@ from .models import db
 from .extensions import guard
 from .models.User_model import Users
 from .models.Role_model import Roles
+from .models.Products_model import Products
 import uuid
 import datetime
 
