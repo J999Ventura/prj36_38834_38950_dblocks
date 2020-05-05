@@ -1,14 +1,27 @@
 FROM python:3.7
 
-COPY . /usr/src/app
+ENV FLASK_ENV=production
+ENV SECRET_KEY=b'\xcb\xd8\x15\xd9\xf1\x94R\xbd\x8b\xdfsv\xe7{\x9b\x08'
+ENV MAIL_USERNAME=betamain10@gmail.com
+ENV MAIL_PASSWORD=alphamain_10
+ENV PRAETORIAN_CONFIRMATION_SENDER=betamain10@gmail.com
+ENV PRAETORIAN_RESET_SENDER=betamain10@gmail.com
+ENV PRAETORIAN_RESET_URI=https://captureapi-2uo2zekoka-ew.a.run.app/api/v1/auth/completeresetpwd
+ENV SQLALCHEMY_DATABASE_URI=postgres+pg8000://postgres:captureadmin@/capturedb?unix_sock=/cloudsql/polished-bounty-276011:europe-west1:capturedb/.s.PGSQL.5432
+ENV MAIL_SERVER=smtp.googlemail.com
+ENV MAIL_PORT=587
+ENV MAIL_USE_TLS=True
+ENV PRAETORIAN_CONFIRMATION_SUBJECT=UserRegistration
+ENV PRAETORIAN_CONFIRMATION_URI=https://captureapi-2uo2zekoka-ew.a.run.app/api/v1/auth/verify
+ENV JWT_ACCESS_LIFESPAN=24hours
+ENV JWT_REFRESH_LIFESPAN=2days
 
-WORKDIR /usr/src/app/src/api
+COPY . /usr/src/app
+WORKDIR /usr/src/app/src
 
 RUN pip install --upgrade pip && \
-    pip install pipenv && \
-	pipenv lock && \
-    pipenv install --dev --system --deploy --ignore-pipfile
+	pip install -r requirements.txt
 
 
-#CMD gunicorn --worker-class gevent --workers 4 --bind 0.0.0.0:455 wsgi:app --max-requests 10000 --timeout 5 --keep-alive 5 --log-level info --reload
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+CMD gunicorn --worker-class gevent --workers 4 --bind 0.0.0.0:8080 wsgi:app --max-requests 10000 --timeout 5 --keep-alive 5 --log-level info --reload
+#CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]

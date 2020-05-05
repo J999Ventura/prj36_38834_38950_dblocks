@@ -1,0 +1,17 @@
+PROJECT_ID = local-cedar-274819
+APP_NAME = capture_api
+
+PROJECT_ID : gcloud config get-value project -> local-cedar-274819
+
+
+BUILD DOCKER : gcloud builds submit --tag gcr.io/PROJECT_ID/APP_NAME
+
+DEPLOY CLOUD_RUN: gcloud run deploy --image gcr.io/PROJECT-ID/APP_NAME --platform managed
+
+
+
+gcloud builds submit --tag gcr.io/local-cedar-274819/capture_api
+
+gcloud run deploy --image gcr.io/local-cedar-274819/capture_api --platform managed --allow-unauthenticated
+
+
