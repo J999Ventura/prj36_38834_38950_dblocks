@@ -1,4 +1,4 @@
-from . import db
+from api.v1.models import db
 
 class Products(db.Model):
  
@@ -7,3 +7,4 @@ class Products(db.Model):
 
     id = db.Column(db.Integer,primary_key=True)
     product_name = db.Column(db.String(100),unique=True, nullable = False)
+    product_price = db.Column(db.Integer)
