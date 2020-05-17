@@ -1,10 +1,10 @@
+-i https://pypi.org/simple
 alembic==1.4.2
-astroid==2.4.0
+astroid==2.4.1
 blinker==1.4
 cffi==1.14.0 ; platform_python_implementation == 'CPython' and sys_platform == 'win32'
 click==7.1.2
 colorama==0.4.3 ; sys_platform == 'win32'
-cryptography==2.9.2
 deprecated==1.2.9
 flask-buzz==0.1.15
 flask-cors==3.0.8
@@ -20,7 +20,6 @@ inflection==0.3.1
 isort==4.3.21
 itsdangerous==1.1.0
 jinja2==2.11.2
-pyjwt==1.7.1
 lazy-object-proxy==1.4.3
 mako==1.1.2
 markupsafe==1.1.1
@@ -31,8 +30,9 @@ pg8000==1.15.2
 psycopg2==2.8.5
 py-buzz==1.0.3
 pycparser==2.20
+pyjwt==1.7.1
 pylint-flask-sqlalchemy==0.2.0
-pylint==2.5.0
+pylint==2.5.2
 python-dateutil==2.8.1
 python-editor==1.0.4
 pytzdata==2019.3

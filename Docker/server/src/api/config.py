@@ -1,4 +1,3 @@
-import os
 from os import environ
 
 def init_app(app):
@@ -12,6 +11,8 @@ def init_app(app):
     app.config['MAIL_USE_TLS'] = environ.get('MAIL_USE_TLS')
     app.config['PRAETORIAN_CONFIRMATION_SUBJECT'] = environ.get('PRAETORIAN_CONFIRMATION_SUBJECT')
     app.config['PRAETORIAN_CONFIRMATION_URI'] = environ.get('PRAETORIAN_CONFIRMATION_URI')
+    app.config['PRAETORIAN_RESET_SENDER'] = environ.get('PRAETORIAN_RESET_SENDER')
+    app.config['PRAETORIAN_RESET_URI'] = environ.get('PRAETORIAN_RESET_URI')
     app.config['JWT_ACCESS_LIFESPAN'] = environ.get('JWT_ACCESS_LIFESPAN')
     app.config['JWT_REFRESH_LIFESPAN'] = environ.get('JWT_REFRESH_LIFESPAN')
     app.config['GOOGLE_APPLICATION_CREDENTIALS'] = environ.get('GOOGLE_APPLICATION_CREDENTIALS')
