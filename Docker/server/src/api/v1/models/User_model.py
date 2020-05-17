@@ -1,5 +1,6 @@
 from api.v1.models import db
 from api.v1.models.role_model import Roles
+from api.v1.models.products_model import Products
 import uuid
 import datetime
 
@@ -19,6 +20,7 @@ class Users(db.Model):
     created_date = db.Column(db.DateTime)
     role_id = db.Column(db.Integer, db.ForeignKey('capture_adm.roles.id', ondelete='CASCADE'), nullable=False,
                         default=3)
+    product_id = db.relationship('Products', lazy='select', backref=db.backref('user_product'))
     is_active = db.Column(db.Boolean, default=False, server_default='false')
 
     @classmethod
@@ -37,42 +39,56 @@ class Users(db.Model):
     def identity(self):
         return self.public_id
 
-    def is_valid(self):
-        return self.is_active
+    @staticmethod
+    def create_user(first_name, last_name, email, password, birth_date):
+        try:
+            user = Users(public_id=str(uuid.uuid4()),
+                         first_name=first_name,
+                         last_name=last_name,
+                         password=password,
+                         email=email,
+                         birth_date=birth_date,
+                         created_date=datetime.datetime.now()
+                         )
+            db.session.add(user)
+            db.session.commit()
+            return user
+        except:
+            return None
 
     @classmethod
-    def create_user(cls, first_name, last_name, email, password, birth_date,role_id=3):
-        user = Users(public_id=str(uuid.uuid4()),
-                     first_name=first_name,
-                     last_name=last_name,
-                     password=password,
-                     email=email,
-                     birth_date=birth_date,
-                     created_date=datetime.datetime.now(),
-                     role_id=role_id
-                     )
-        db.session.add(user)
-        db.session.commit()
-        return user
-
-    @classmethod
-    def remove_user(cls,email):
-        user = Users.lookup(email)
-        db.session.delete(user)
-        db.session.commit()
-
-    @classmethod
-    def user_info(cls, user):
+    def remove_user(cls, user):
         if user:
-            output = []
-            user_data = {
-                'id': user.public_id,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'profile_image': user.profile_image,
-                'email': user.email,
-                'birth_date': str(user.birth_date),
-                'role': user.role_id}
-            output.append(user_data)
-            return output
-        return None
+            user = cls.lookup(user.email)
+            db.session.delete(user)
+            db.session.commit()
+
+    def active_user(self):
+        self.is_active = True
+        db.session.commit()
+
+    def get_user_info(self):
+        user_data = {
+            'id': self.public_id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'profile_image': self.profile_image,
+            'email': self.email,
+            'birth_date': str(self.birth_date),
+            'role': self.rolenames[0]}
+        return user_data
+
+    @classmethod
+    def get_all_users(cls):
+        try:
+            return cls.query.all()
+        except:
+            return None
+
+    @classmethod
+    def get_products(cls, public_id):
+        user = cls.identify(public_id)
+        products = {}
+        if user:
+            products = Products.query.filter_by(user_id=user.id).all()
+        return products

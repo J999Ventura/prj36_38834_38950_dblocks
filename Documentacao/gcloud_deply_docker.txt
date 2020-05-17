@@ -1,7 +1,7 @@
-PROJECT_ID = local-cedar-274819
+PROJECT_ID = polished-bounty-276011
 APP_NAME = capture_api
 
-PROJECT_ID : gcloud config get-value project -> local-cedar-274819
+PROJECT_ID : gcloud config get-value project -> polished-bounty-276011
 
 
 BUILD DOCKER : gcloud builds submit --tag gcr.io/PROJECT_ID/APP_NAME
@@ -10,8 +10,8 @@ DEPLOY CLOUD_RUN: gcloud run deploy --image gcr.io/PROJECT-ID/APP_NAME --platfor
 
 
 
-gcloud builds submit --tag gcr.io/local-cedar-274819/capture_api
+gcloud builds submit --tag gcr.io/polished-bounty-276011/capture_api
 
-gcloud run deploy --image gcr.io/local-cedar-274819/capture_api --platform managed --allow-unauthenticated
+gcloud run deploy --image gcr.io/polished-bounty-276011/capture_api --platform managed --allow-unauthenticated
 
 
