@@ -17,8 +17,6 @@ def open():
 
 
 
-
-
 @v1_bp.route('/user/products', methods=['POST'])
 def get_user_products():
     json_data = request.get_json()

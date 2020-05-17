@@ -4,7 +4,15 @@ from api.v1.routes.utils import get_products_list
 from flask import Response
 import json
 
+#12 produtos mais recentes
 
+#4 produtos mais vendidos
+
+#3 produtos com maior rating
+
+#8 produtos premium
+
+#produtos por pagina
 @v1_bp.route('/products/<int:page>', methods=['GET'])
 def view(page=1):
     per_page = 12

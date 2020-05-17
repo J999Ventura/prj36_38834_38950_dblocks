@@ -82,9 +82,25 @@ def reset_password():
     try:
         guard.send_reset_email(email)
         return Response(json.dumps({'message': 'Please check your email to change the password'}), status=200,
-                        mimetype='application/json')
+                    mimetype='application/json')
     except:
         return Response(json.dumps({'message': 'Fail to change the password'}), status=400,
+                        mimetype='application/json')
+
+@auth_bp.route('/resendemail', methods=['POST'])
+def resend_email():
+    try:
+        json_data = request.get_json()
+        email = json_data['email']
+    except:
+        # verificar se o status code e mesmo este
+        return Response(json.dumps({'message': 'Invalid parameters'}), status=203, mimetype='application/json')
+    try:
+        guard.send_registration_email(email)
+        return Response(json.dumps({'message': 'Please check your email to verify the account'}), status=200,
+                    mimetype='application/json')
+    except:
+        return Response(json.dumps({'message': 'Fail to send verification email'}), status=400,
                         mimetype='application/json')
 
 
