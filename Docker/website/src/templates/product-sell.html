@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block content %}
+
+                   <!-- Start product sell Area -->
+                    <section class="htc__category__area ptb--100 bg__cat--3 section_sell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="section__title--2 text-center">
+                                        <h2 class="title__line">Sell Your Products</h2>
+                                        <p>Upload your photo here and sell it.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sell_form col-m-12 col-sm-12 col-l-12 col-xs-12 col-xl-12">
+                                <div class="row">
+                                    <form class="justify-content-center" method="POST" action="/product-sell" enctype="multipart/form-data">
+                                        {{formupload.hidden_tag()}}
+                                        <fieldset class="form-group">
+                                           <div class="form-group">
+                                               <div class="col-m-6 col-sm-6 col-l-6 col-xs-6 col-xl-6">
+                                               {{ wtf.form_field(formupload.prodname)}}
+                                               {{ wtf.form_field(formupload.prodimage, accept="image/*")}}
+                                               </div>
+                                               <div class="col-m-6 col-sm-6 col-l-6 col-xs-6 col-xl-6">
+                                               {{ wtf.form_field(formupload.prodprice)}}
+                                               {{ wtf.form_field(formupload.prodcatg)}}
+                                               </div>
+                                               {{ wtf.form_field(formupload.proddesc, minlength="2", maxlength="100")}}
+
+                                           </div>
+                                       </fieldset>
+                                       <div class="form-group">
+                                            {{ wtf.form_field(formupload.submitupload, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
+                                        </div>
+                                    </form>
+                                    <script>
+                                        $("#file-picker").change(function(){
+
+                                            var input = document.getElementById('file-picker');
+
+                                            for (var i=0; i<input.files.length; i++)
+                                            {
+                                                var ext= input.files[i].name.substring(input.files[i].name.lastIndexOf('.')+1).toLowerCase()
+
+                                                if ((ext == 'jpg') || (ext == 'png'))
+                                                {
+                                                    $("#msg").text("Files are supported")
+                                                }
+                                                else
+                                                {
+                                                    $("#msg").text("Files are NOT supported")
+                                                    document.getElementById("file-picker").value ="";
+                                                }
+
+                                            }
+
+
+                                        } );
+
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End Category Area -->
+        <div class="tab-content">
+              <div class="tab-pane active" id="sell_products">
+                     <!-- Start Category Area -->
+                    <section class="htc__category__area ptb--100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="section__title--2 text-center">
+                                        <h2 class="title__line">Products for sale</h2>
+                                        <p>These are the products that you are selling</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="htc__product__container">
+                                <div class="row">
+                                    <div class="product__list clearfix mt--30">
+                                        <!-- Start Single Category -->
+                                        {% for userProd in userProducts %}
+
+                                            <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
+                                                <div class="category">
+                                                    <div class="ht__cat__thumb">
+                                                        <a href="/product-details">
+                                                            <img src="{{url_for('static', filename = 'images/product/1.jpg')}}" alt="product images">
+                                                        </a>
+                                                    </div>
+                                                    <div class="fr__hover__info">
+                                                        <ul class="product__action">
+                                                            <li><a href="/wishlist"><i class="icon-heart icons"></i></a></li>
+
+                                                            <li><a href="/cart"><i class="icon-handbag icons"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="fr__product__inner">
+                                                        <h4>
+                                                            <a href="/product-details">
+                                                                {{userProd.name}}
+                                                                <small>,by {{userProd.seller}}</small>
+                                                            </a>
+                                                        </h4>
+                                                        <ul class="fr__pro__prize">
+                                                            <li class="old__prize">{{userProd.price}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Start Pagenation -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ul class="htc__pagenation">
+                                   <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                   <li><a href="#">1</a></li>
+                                   <li class="active"><a href="#">3</a></li>
+                                   <li><a href="#">19</a></li>
+                                   <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Pagenation -->
+                    </section>
+                    <!-- End Category Area -->
+              </div>
+         </div>
+
+{% endblock content %}

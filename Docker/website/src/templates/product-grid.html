@@ -1,194 +1,143 @@
 {% extends "layout.html" %}
 {% block content %}
-        <!-- Start Bradcaump area -->
-        <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/4.jpg) no-repeat scroll center center / cover ;">
-            <div class="ht__bradcaump__wrap">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="bradcaump__inner">
-                                <nav class="bradcaump-inner">
-                                  <a class="breadcrumb-item" href="index.html">Home</a>
-                                  <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                                  <span class="breadcrumb-item active">Products</span>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Bradcaump area -->
+
         <!-- Start Product Grid -->
         <section class="htc__product__grid bg__white ptb--100">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12">
-                        <div class="htc__product__rightidebar">
-                            <div class="htc__grid__top">
-                                <div class="htc__select__option">
-                                    <select class="ht__select">
-                                        <option>Default softing</option>
-                                        <option>Sort by popularity</option>
-                                        <option>Sort by average rating</option>
-                                        <option>Sort by newness</option>
-                                    </select>
-                                    <select class="ht__select">
-                                        <option>Show by</option>
-                                        <option>Sort by popularity</option>
-                                        <option>Sort by average rating</option>
-                                        <option>Sort by newness</option>
-                                    </select>
-                                </div>
-                                <div class="ht__pro__qun">
-                                    <span>Showing 1-12 of 1033 products</span>
-                                </div>
-                                <!-- Start List And Grid View -->
-                                <ul class="view__mode" role="tablist">
-                                    <li role="presentation" class="grid-view active"><a href="#grid-view" role="tab" data-toggle="tab"><i class="zmdi zmdi-grid"></i></a></li>
-                                    <li role="presentation" class="list-view"><a href="#list-view" role="tab" data-toggle="tab"><i class="zmdi zmdi-view-list"></i></a></li>
-                                </ul>
-                                <!-- End List And Grid View -->
-                            </div>
-                            <!-- Start Product View -->
-                            <div class="row">
-                                <div class="shop__grid__view__wrap">
-                                    <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
-                                        <!-- Start Single Product -->
-                                         {% for product in allCategoryProducts %}
-                                            <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                                                <div class="category">
-                                                    <div class="ht__cat__thumb">
-                                                        <a href="product-details.html">
-                                                            <img src="{{url_for('static', filename = 'images/product/1.jpg')}}" alt="product images">
-                                                        </a>
-                                                    </div>
-                                                    <div class="fr__hover__info">
-                                                        <ul class="product__action">
-                                                            <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
-
-                                                            <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-
-                                                            <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="fr__product__inner">
-                                                        <h4><a href="product-details.html">{{product.name}}</a></h4>
-                                                        <ul class="fr__pro__prize">
-                                                            <li>{{product.price}}</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                        <!-- End Single Product -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Product View -->
+                    <div class="col-xs-12">
+                        <div class="section__title--2 text-center">
+                            <h2 class="title__line">Product Search</h2>
+                            <p>Search for the products you want</p>
                         </div>
-                        <!-- Start Pagenation -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ul class="htc__pagenation">
-                                   <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li> 
-                                   <li><a href="#">1</a></li> 
-                                   <li class="active"><a href="#">3</a></li>   
-                                   <li><a href="#">19</a></li> 
-                                   <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li> 
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- End Pagenation -->
                     </div>
-                    <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
-                        <div class="htc__product__leftsidebar">
-                            <!-- Start Prize Range -->
-                            <div class="htc-grid-range">
-                                <h4 class="title__line--4">Price</h4>
-                                <div class="content-shopby">
-                                    <div class="price_filter s-filter clear">
-                                        <form action="#" method="GET">
-                                            <div id="slider-range"></div>
-                                            <div class="slider__range--output">
-                                                <div class="price__output--wrap">
-                                                    <div class="price--output">
-                                                        <span>Price :</span><input type="text" id="amount" readonly>
-                                                    </div>
-                                                    <div class="price--filter">
-                                                        <a href="#">Filter</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                </div>
+                <div class="sell_form col-m-12 col-sm-12 col-l-12 col-xs-12 col-xl-12">
+                    <div class="row">
+                        <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12">
+                            <div class="htc__product__rightidebar">
+                                <div class="htc__grid__top">
+                                    <div class="htc__select__option">
+                                        <select class="ht__select">
+                                            <option>Default softing</option>
+                                            <option>Sort by popularity</option>
+                                            <option>Sort by average rating</option>
+                                            <option>Sort by newness</option>
+                                        </select>
                                     </div>
                                 </div>
+                                <!-- Start Product View -->
+                                <div class="row">
+                                    <div class="shop__grid__view__wrap">
+                                        <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
+                                            <!-- Start Single Product -->
+                                             {% for product in allCategoryProducts %}
+                                                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                                                    <div class="category">
+                                                        <div class="ht__cat__thumb">
+                                                            <a href="product-details.html">
+                                                                <img src="{{url_for('static', filename = 'users/' )}}{{product.user_id}}/{{product.id}}.jpg" alt="product images">
+                                                            </a>
+                                                        </div>
+                                                        <div class="fr__hover__info">
+                                                            <ul class="product__action">
+                                                                <li><a href="/wishlist"><i class="icon-heart icons"></i></a></li>
+                                                                <li><a onclick="addToCart(this, '{{product.id}}', '{{product.price}}', '{{product.name}}', '{{product.user_id}}')"><i class="icon-handbag icons"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="fr__product__inner">
+                                                            <h4><a href="product-details.html">{{product.name}}</a></h4>
+                                                            <ul class="fr__pro__prize">
+                                                                <li>€ {{product.price}}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            <!-- End Single Product -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Product View -->
                             </div>
-                            <!-- End Prize Range -->
-                            <!-- Start Category Area -->
-                            <div class="htc__category">
-                                <h4 class="title__line--4">categories</h4>
-                                <ul class="ht__cat__list">
-                                    {% for category in categories %}
-                                        <li><a href="#">{{category.name}}</a></li>
-                                    {% endfor %}
-                                </ul>
+                            <!-- Start Pagenation -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <ul class="htc__pagenation">
+                                       <li><a href="/product-grid/{{g.category}}/{{g.pagination_page-1}}"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                        {% for page_numb in range(1, 6) %}
+                                            {% if g.category %}
+                                                {% if page_numb == g.pagination_page %}
+                                                    <li class="active"><a href="/product-grid/{{g.category}}/{{page_numb}}">{{page_numb}}</a></li>
+                                                {% else %}
+                                                    <li><a href="/product-grid/{{g.category}}/{{page_numb}}">{{page_numb}}</a></li>
+                                                {% endif %}
+                                        {% else %}
+                                                <li><a href="/product-grid/{{page_numb}}">{{page_numb}}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                       <li><a href="/product-grid/{{g.category}}/{{g.pagination_page+1}}"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <!-- End Category Area -->
-                            <!-- Start Pro Size -->
-                            <div class="ht__pro__size">
-                                <h4 class="title__line--4">Size</h4>
-                                <ul class="ht__size__list">
-                                    {% for size in sizes %}
-                                        <li><a href="#">{{size.name}}</a></li>
-                                    {% endfor %}
-                                </ul>
+                            <!-- End Pagenation -->
+                        </div>
+                        <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
+                            <div class="htc__product__leftsidebar">
+                                <!-- Start Prize Range -->
+                                <div class="htc-grid-range">
+                                    <h4 class="title__line--4">Price</h4>
+                                    <div class="content-shopby">
+                                        <div class="price_filter s-filter clear">
+                                            <form action="#" method="GET">
+                                                <div id="slider-range"></div>
+                                                <div class="slider__range--output">
+                                                    <div class="price__output--wrap">
+                                                        <div class="price--output">
+                                                            <span>Price :</span><input type="text" id="amount" readonly>
+                                                        </div>
+                                                        <div class="price--filter">
+                                                            <a href="#">Filter</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Prize Range -->
+                                <!-- Start Category Area -->
+                                <div class="htc__category">
+                                    <h4 class="title__line--4">categories</h4>
+                                    <ul class="ht__cat__list">
+                                        {% for category in categories %}
+                                            <li><a href="#">{{category.name}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <!-- End Category Area -->
+                                <div class="htc__tag">
+                                    <h4 class="title__line--4">tags</h4>
+                                    <ul class="ht__tag__list">
+                                        {% for tag in tags %}
+                                            <li><a href="#">{{tag.name}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <!-- End Tag Area -->
+                                <!-- Start Compare Area -->
+                                <div class="htc__compare__area">
+                                    <ul class="ht__com__btn">
+                                        <li><a href="#">clear all</a></li>
+                                        <li class="compare"><a href="#">Search</a></li>
+                                    </ul>
+                                </div>
+                                <!-- End Compare Area -->
                             </div>
-                            <!-- End Pro Size -->
-                            <!-- Start Tag Area -->
-                            <div class="htc__tag">
-                                <h4 class="title__line--4">tags</h4>
-                                <ul class="ht__tag__list">
-                                    {% for tag in tags %}
-                                        <li><a href="#">{{tag.name}}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <!-- End Tag Area -->
-                            <!-- Start Compare Area -->
-                            <div class="htc__compare__area">
-                                <ul class="ht__com__btn">
-                                    <li><a href="#">clear all</a></li>
-                                    <li class="compare"><a href="#">Search</a></li>
-                                </ul>
-                            </div>
-                            <!-- End Compare Area -->
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- End Product Grid -->
-        <!-- Start Brand Area -->
-        <div class="htc__brand__area bg__cat--4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="ht__brand__inner">
-                            <ul class="brand__list owl-carousel clearfix">
-                                <li><a href="#"><img src="images/brand/1.png" alt="brand images"></a></li>
-                                <li><a href="#"><img src="images/brand/2.png" alt="brand images"></a></li>
-                                <li><a href="#"><img src="images/brand/3.png" alt="brand images"></a></li>
-                                <li><a href="#"><img src="images/brand/4.png" alt="brand images"></a></li>
-                                <li><a href="#"><img src="images/brand/5.png" alt="brand images"></a></li>
-                                <li><a href="#"><img src="images/brand/5.png" alt="brand images"></a></li>
-                                <li><a href="#"><img src="images/brand/1.png" alt="brand images"></a></li>
-                                <li><a href="#"><img src="images/brand/2.png" alt="brand images"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Brand Area -->
 {% endblock content %}

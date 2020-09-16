@@ -1,12 +1,9 @@
-FROM python:3.7
+FROM python:3.8
 
 COPY . /usr/src/app
-
 WORKDIR /usr/src/app/src
 
-RUN pip install --upgrade pip && \
-    pip install pipenv && \
-	pipenv lock && \
-    pipenv install --dev --system --deploy --ignore-pipfile
+RUN	pip install --upgrade pip && \
+	pip install -r requirements.txt
 	
-CMD ["python", "controler.py"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]

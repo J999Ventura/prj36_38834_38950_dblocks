@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block content %}
+
+                   <!-- Start product sell Area -->
+                    <section class="htc__category__area ptb--100 bg__cat--3 section_sell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="section__title--2 text-center">
+                                        <h2 class="title__line">Confirm Email</h2>
+                                        <p>Insert your email for confirmation.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sell_form col-m-12 col-sm-12 col-l-12 col-xs-12 col-xl-12">
+                                <div class="row">
+                                    <form class="justify-content-center" method="POST" action="/confirm-email" enctype="multipart/form-data">
+                                        {{formconfirmemail.hidden_tag()}}
+                                       <div class="form-group">
+                                            {{ wtf.form_field(formconfirmemail.submitconfirmemail, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End Category Area -->
+
+{% endblock content %}

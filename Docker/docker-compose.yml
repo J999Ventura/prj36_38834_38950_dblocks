@@ -8,25 +8,12 @@ services:
         env_file:
             - ./server/config/.env
         ports:
-            - "5000:5000"
-        depends_on:
-            - cloud-sql-proxy
-            
-    cloud-sql-proxy:
-      container_name: cloudsql-proxy
-      image: gcr.io/cloudsql-docker/gce-proxy:1.11
-      command: /cloud_sql_proxy --dir=/cloudsql -instances=local-cedar-274819:us-central1:cloud-capture-db=tcp:0.0.0.0:5432 -credential_file=/secrets/cloudsql/key.json
-      ports:
-        - 5432:5432
-      volumes:
-        - ./server/config/key.json:/secrets/cloudsql/key.json
-      restart: always
-    
+            - "5000:5000"    
     website:
         build: ./website
         volumes:
             - ./website:/usr/src/app
         ports:
-            - "5000:80"
+            - "5001:5000"
         depends_on:
             - product-services

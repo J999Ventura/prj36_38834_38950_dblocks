@@ -1,4 +1,5 @@
 <!doctype html>
+{% import "bootstrap/wtf.html" as wtf %}
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,9 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static', filename = 'images/logo.ico')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static', filename = 'images/logo/icon.png')}}">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
 
     <!-- All css files are included here. -->
     <!-- Bootstrap fremwork main css -->
@@ -37,9 +37,10 @@
 
     <!-- Modernizr JS -->
     <script src="{{url_for('static', filename = 'js/vendor/modernizr-3.5.0.min.js')}}"></script>
+
 </head>
 
-<body>
+<body onload="timerRemoveAlert()">
     <!-- Body main wrapper start -->
     <div class="wrapper">
         <!-- Start Header Style -->
@@ -49,19 +50,19 @@
                 <div class="container">
                     <div class="row">
                         <div class="menumenu__container clearfix">
-                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
+                            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-5">
                                 <div class="logo">
-                                     <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename = 'images/logo/1.png')}}" alt="logo images"></a>
+                                     <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename = 'images/logo/logo.png')}}" alt="logo images"></a>
                                 </div>
                             </div>
-                            <div class="col-md-7 col-lg-8 col-sm-5 col-xs-3">
+                            <div class="col-md-7 col-lg-8 col-sm-5 col-xs-2">
                                 <nav class="main__menu__nav hidden-xs hidden-sm">
                                     <ul class="main__menu">
                                         <li class="drop"><a href="{{ url_for('index') }}">Home</a></li>
                                         <li class="drop"><a href="#">Category</a>
                                             <ul class="dropdown">
                                                 {% for category in categories %}
-                                                    <li><a href="/product-grid">{{category.name}}</a></li>
+                                                    <li><a href="/product-grid/{{category.name}}/1">{{category.name}}</a></li>
                                                 {% endfor %}
                                             </ul>
                                         </li>
@@ -76,147 +77,158 @@
                                             <li><a href="#">Categories</a>
                                                 <ul>
                                                 {% for category in categories %}
-                                                    <li><a href="/product-grid">{{category.name}}</a></li>
+                                                    <li><a href="/product-grid/{{category.name}}/1">{{category.name}}</a></li>
                                                 {% endfor %}
                                                 </ul>
                                             </li>
-                                            <li><a href="/contact">contact</a></li>
+                                            <li><a href="#htc__footer">contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-2 col-sm-4 col-xs-4">
+                            <div class="col-md-2 col-lg-1 col-sm-3 col-xs-4">
                                 <div class="header__right">
+                                    {% if g.user %}
+                                        <div class="header__search">
+                                            <a class="header__sell" href="/product-sell">Sell</a>
+                                        </div>
+                                    {% endif %}
                                     <div class="header__search search search__open">
                                         <a href="#"><i class="icon-magnifier icons"></i></a>
                                     </div>
                                     <div class="header__account">
-                                        <a data-toggle="modal" data-target="#loginModal"><i class="icon-user icons"></i></a>
-                                              <!-- The Login Modal -->
-                                              <div class="modal fade" id="loginModal">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                  <div class="modal-content">
+                                        {% if g.user %}
+                                        <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icons"></i></a>
+                                        <div id="drop_login" class="dropdown-menu">
+                                            <a href="/wishlist" class="logout">Wishlist</a>
+                                            <br>
+                                            <a href="/profile" class="logout">Profile</a>
+                                            <br>
+                                            <a href="/logout" class="logout">Logout</a>
+                                        </div>
+                                        {% else %}
+                                            <a data-toggle="modal" data-target="#loginModal"><i class="icon-user icons"></i></a>
+                                                  <!-- The Login Modal -->
+                                                  <div class="modal fade" id="loginModal">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                      <div class="modal-content">
 
-                                                    <div class="modal-header">
-                                                      <button type="button" class="close" data-dismiss="modal">×</button>
-                                                        <ul class="nav nav-tabs" id="tabContent">
-                                                            <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
-                                                            <li><a href="#register" data-toggle="tab">Register</a></li>
-                                                        </ul>
-                                                    </div>
+                                                        <div class="modal-header">
+                                                          <button type="button" class="close" data-dismiss="modal">×</button>
+                                                            <ul class="nav nav-tabs" id="tabContent">
+                                                                <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+                                                                <li><a href="#register" data-toggle="tab">Register</a></li>
+                                                            </ul>
+                                                        </div>
 
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body">
-                                                          <div class="tab-content">
-                                                                <div class="tab-pane active" id="login">
-                                                                     <form class="justify-content-center" method="POST" action="">
-                                                                         {{formlog.hidden_tag()}}
-                                                                         <fieldset class="form-group">
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+                                                              <div class="tab-content">
+                                                                    <div class="tab-pane active" id="login">
+                                                                         <form id="form_login" class="justify-content-center" method="POST" action="/index">
+                                                                             {{formlog.hidden_tag()}}
+                                                                             <fieldset class="form-group">
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formlog.email, type="email")}}
+                                                                                     <span class="error" aria-live="polite"></span>
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formlog.password, minlength="6", maxlength="50")}}
+                                                                                 </div>
+                                                                                 <div>
+                                                                                     <a href="#recover_password" data-toggle="tab" class="attrb_a_form control-label">Recover password</a>
+                                                                                 </div>
+                                                                                 <div>
+                                                                                     <a href="#resend_email" data-toggle="tab" class="attrb_a_form control-label">Resend registration email</a>
+                                                                                 </div>
+                                                                             </fieldset>
                                                                              <div class="form-group">
-                                                                                 {{ formlog.email.label(class="form-control-label")}}
-                                                                                     {% if formlog.email.errors %}
-                                                                                        {{ formlog.email(class="news__input is-invalid")}}
-                                                                                        <div class="invalid-feedback">
-                                                                                            {% for error in formlog.email.erros %}
-                                                                                                <span>{{ error }}</span>
-                                                                                            {% endfor %}
-                                                                                        </div>
-                                                                                     {% else %}
-                                                                                         {{ formlog.email(class="news__input")}}
-                                                                                     {% endif %}
+                                                                                 {{ wtf.form_field(formlog.submitlog, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
                                                                              </div>
+                                                                         </form>
+                                                                    </div>
+                                                                      <div class="tab-pane" id="recover_password">
+                                                                             <form id="form_recover" class="justify-content-center" method="POST" action="/index">
+                                                                                 {{formrecover.hidden_tag()}}
+                                                                                 <fieldset class="form-group">
+                                                                                     <div class="form-group">
+                                                                                         {{ wtf.form_field(formrecover.email, type="email")}}
+                                                                                         <span class="error" aria-live="polite"></span>
+                                                                                     </div>
+                                                                                     <div>
+                                                                                         <a href="#login" data-toggle="tab" class="control-label attrb_a_form">Back</a>
+                                                                                     </div>
+                                                                                 </fieldset>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formrecover.submitrec, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
+                                                                                 </div>
+                                                                             </form>
+                                                                        </div>
+                                                                        <div class="tab-pane" id="resend_email">
+                                                                             <form id="form_resend" class="justify-content-center" method="POST" action="/index">
+                                                                                 {{formresend.hidden_tag()}}
+                                                                                 <fieldset class="form-group">
+                                                                                     <div class="form-group">
+                                                                                         {{ wtf.form_field(formresend.email, type="email")}}
+                                                                                         <span class="error" aria-live="polite"></span>
+                                                                                     </div>
+                                                                                     <div>
+                                                                                         <a href="#login" data-toggle="tab" class="control-label attrb_a_form">Back</a>
+                                                                                     </div>
+                                                                                 </fieldset>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formresend.submitresend, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
+                                                                                 </div>
+                                                                             </form>
+                                                                        </div>
+                                                                    <div class="tab-pane" id="register">
+                                                                         <form id="form_register" class="justify-content-center" method="POST" action="/index">
+                                                                             {{formreg.hidden_tag()}}
+                                                                             <fieldset class="form-group">
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.fname, minlength="4", maxlength="25")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.lname, minlength="4", maxlength="25")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.bdate, minlength="8", maxlength="8")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.email, type="email", minlength="6", maxlength="50")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.password_reg, minlength="6", maxlength="50")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.confirm_password)}}
+                                                                                 </div>
+                                                                             </fieldset>
                                                                              <div class="form-group">
-                                                                                 {{ formlog.password.label(class="form-control-label")}}
-                                                                                     {% if formlog.password.errors %}
-                                                                                        {{ formlog.password(class="news__input is-invalid")}}
-                                                                                        <div class="invalid-feedback">
-                                                                                            {% for error in formlog.password.erros %}
-                                                                                                <span>{{ error }}</span>
-                                                                                            {% endfor %}
-                                                                                        </div>
-                                                                                     {% else %}
-                                                                                         {{ formlog.password(class="news__input")}}
-                                                                                     {% endif %}
+                                                                                 {{ wtf.form_field(formreg.submitreg, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
                                                                              </div>
-                                                                         </fieldset>
-                                                                         <div class="form-group">
-                                                                                 {{ formlog.submit(class="fr__btn")}}
-                                                                         </div>
-                                                                     </form>
-                                                                </div>
-                                                                <div class="tab-pane" id="register">
-                                                                     <form class="justify-content-center" method="POST" action="">
-                                                                         {{formreg.hidden_tag()}}
-                                                                         <fieldset class="form-group">
-                                                                             <div class="form-group">
-                                                                                 {{ formreg.username.label(class="form-control-label")}}
-                                                                                     {% if formreg.username.errors %}
-                                                                                        {{ formreg.username(class="news__input is-invalid")}}
-                                                                                        <div class="invalid-feedback">
-                                                                                            {% for error in formreg.username.erros %}
-                                                                                                <span>{{ error }}</span>
-                                                                                            {% endfor %}
-                                                                                        </div>
-                                                                                     {% else %}
-                                                                                         {{ formreg.username(class="news__input")}}
-                                                                                     {% endif %}
-                                                                             </div>
-                                                                             <div class="form-group">
-                                                                                 {{ formreg.email.label(class="form-control-label")}}
-                                                                                     {% if formreg.email.errors %}
-                                                                                        {{ formreg.email(class="news__input is-invalid")}}
-                                                                                        <div class="invalid-feedback">
-                                                                                            {% for error in formreg.email.erros %}
-                                                                                                <span>{{ error }}</span>
-                                                                                            {% endfor %}
-                                                                                        </div>
-                                                                                     {% else %}
-                                                                                         {{ formreg.email(class="news__input")}}
-                                                                                     {% endif %}
-                                                                             </div>
-                                                                             <div class="form-group">
-                                                                                 {{ formreg.password.label(class="form-control-label")}}
-                                                                                     {% if formreg.password.errors %}
-                                                                                        {{ formreg.password(class="news__input is-invalid")}}
-                                                                                        <div class="invalid-feedback">
-                                                                                            {% for error in formreg.password.erros %}
-                                                                                                <span>{{ error }}</span>
-                                                                                            {% endfor %}
-                                                                                        </div>
-                                                                                     {% else %}
-                                                                                         {{ formreg.password(class="news__input")}}
-                                                                                     {% endif %}
-                                                                             </div>
-                                                                             <div class="form-group">
-                                                                                 {{ formreg.confirm_password.label(class="form-control-label")}}
-                                                                                     {% if formreg.confirm_password.errors %}
-                                                                                        {{ formreg.confirm_password(class="news__input is-invalid")}}
-                                                                                        <div class="invalid-feedback">
-                                                                                            {% for error in formreg.confirm_password.erros %}
-                                                                                                <span>{{ error }}</span>
-                                                                                            {% endfor %}
-                                                                                        </div>
-                                                                                     {% else %}
-                                                                                         {{ formreg.confirm_password(class="news__input")}}
-                                                                                     {% endif %}
-                                                                             </div>
-                                                                         </fieldset>
-                                                                         <div class="form-group">
-                                                                                 {{ formreg.submit(class="fr__btn")}}
-                                                                         </div>
-                                                                     </form>
-                                                                </div>
-                                                          </div>
+                                                                         </form>
+                                                                    </div>
+                                                              </div>
+                                                        </div>
+                                                      </div>
                                                     </div>
                                                   </div>
-                                                </div>
-                                              </div>
-
+                                        {% endif %}
                                     </div>
                                     <div class="htc__shopping__cart">
-                                        <a class="cart__menu" href="#"><i class="icon-handbag icons"></i></a>
-                                        <a href="#"><span class="htc__qua">2</span></a>
+                                        <a class="cart__menu" onclick="fillCart()"><i class="icon-handbag icons"></i></a>
+                                        <a href="#"><span id="cart_count" class="htc__qua">0</span></a>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-sm-2 col-xs-1">
+                                <div class="username_hello hidden-xs hidden-sm">
+                                    {% if g.user %}
+                                    <span>Hello, {{g.user["fname"]}}</span>
+                                    {% else %}
+                                    <span>Hello</span>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -255,44 +267,14 @@
                     <div class="offsetmenu__close__btn">
                         <a href="#"><i class="zmdi zmdi-close"></i></a>
                     </div>
-                    <div class="shp__cart__wrap">
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="{{url_for('static', filename = 'images/product-2/sm-smg/1.jpg')}}" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="/product-details">Product 1</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">€105.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
-                            </div>
-                        </div>
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="{{url_for('static', filename = 'images/product-2/sm-smg/2.jpg')}}" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="/product-details">Product 2</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">€25.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
-                            </div>
-                        </div>
+                    <div id="cart_prod_session" class="shp__cart__wrap">
+
                     </div>
                     <ul class="shoping__total">
                         <li class="subtotal">Subtotal:</li>
-                        <li class="total__price">€130.00</li>
+                        <li id="totalPrice" class="total__price">€0.00</li>
                     </ul>
                     <ul class="shopping__btn">
-                        <li><a href="/cart">View Cart</a></li>
                         <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
                     </ul>
                 </div>
@@ -303,7 +285,7 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
+                    <div id="alert_form" class="alert alert-{{ category }}">
                         {{ message }}
                     </div>
                 {% endfor %}
@@ -316,114 +298,18 @@
         <!-- End Banner Area -->
         <!-- Start Footer Area -->
         <footer id="htc__footer">
-            <!-- Start Footer Widget -->
-            <div class="footer__container bg__cat--1">
-                <div class="container">
-                    <div class="row">
-                        <!-- Start Single Footer Widget -->
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="footer">
-                                <h2 class="title__line--2">ABOUT US</h2>
-                                <div class="ft__details">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
-                                    <div class="ft__social__link">
-                                        <ul class="social__link">
-                                            <li><a href="#"><i class="icon-social-twitter icons"></i></a></li>
-
-                                            <li><a href="#"><i class="icon-social-instagram icons"></i></a></li>
-
-                                            <li><a href="#"><i class="icon-social-facebook icons"></i></a></li>
-
-                                            <li><a href="#"><i class="icon-social-google icons"></i></a></li>
-
-                                            <li><a href="#"><i class="icon-social-linkedin icons"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Footer Widget -->
-                        <!-- Start Single Footer Widget -->
-                        <div class="col-md-2 col-sm-6 col-xs-12 xmt-40">
-                            <div class="footer">
-                                <h2 class="title__line--2">information</h2>
-                                <div class="ft__inner">
-                                    <ul class="ft__list">
-                                        <li><a href="#">About us</a></li>
-                                        <li><a href="#">Delivery Information</a></li>
-                                        <li><a href="#">Privacy & Policy</a></li>
-                                        <li><a href="#">Terms  & Condition</a></li>
-                                        <li><a href="#">Manufactures</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Footer Widget -->
-                        <!-- Start Single Footer Widget -->
-                        <div class="col-md-2 col-sm-6 col-xs-12 xmt-40 smt-40">
-                            <div class="footer">
-                                <h2 class="title__line--2">my account</h2>
-                                <div class="ft__inner">
-                                    <ul class="ft__list">
-                                        <li><a href="#">My Account</a></li>
-                                        <li><a href="/cart">My Cart</a></li>
-                                        <li><a href="#">Login</a></li>
-                                        <li><a href="/wishlist">Wishlist</a></li>
-                                        <li><a href="/checkout">Checkout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Footer Widget -->
-                        <!-- Start Single Footer Widget -->
-                        <div class="col-md-2 col-sm-6 col-xs-12 xmt-40 smt-40">
-                            <div class="footer">
-                                <h2 class="title__line--2">Our service</h2>
-                                <div class="ft__inner">
-                                    <ul class="ft__list">
-                                        <li><a href="#">My Account</a></li>
-                                        <li><a href="/cart">My Cart</a></li>
-                                        <li><a href="#">Login</a></li>
-                                        <li><a href="/wishlist">Wishlist</a></li>
-                                        <li><a href="/checkout">Checkout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Footer Widget -->
-                        <!-- Start Single Footer Widget -->
-                        <div class="col-md-3 col-sm-6 col-xs-12 xmt-40 smt-40">
-                            <div class="footer">
-                                <h2 class="title__line--2">NEWSLETTER </h2>
-                                <div class="ft__inner">
-                                    <div class="news__input">
-                                        <input type="text" placeholder="Your Mail*">
-                                        <div class="send__btn">
-                                            <a class="fr__btn" href="#">Send Mail</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Footer Widget -->
-                    </div>
-                </div>
-            </div>
-            <!-- End Footer Widget -->
             <!-- Start Copyright Area -->
-            <!--<div class="htc__copyright bg__cat--5">
+            <div class="htc__copyright bg__cat--5">
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="copyright__inner">
-                                <p>Copyright© <a href="https://freethemescloud.com/">Free themes Cloud</a> 2018. All right reserved.</p>
-                                <a href="#"><img src="{{url_for('static', filename = 'images/others/shape/paypol.png')}}" alt="payment images"></a>
+                                <p>Copyright© 2020 Capture. All right reserved.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <!-- End Copyright Area -->
         </footer>
         <!-- End Footer Style -->
@@ -447,7 +333,9 @@
     <script src="{{url_for('static', filename = 'js/waypoints.min.js')}}"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="{{url_for('static', filename = 'js/main.js')}}"></script>
-
+    <script src="{{url_for('static', filename = 'js/form.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/checkout-cart.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/wishlist.js')}}"></script>
 
 </body>
 
