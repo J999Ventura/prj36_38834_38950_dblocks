@@ -268,8 +268,6 @@ nav.off__canvars--menu ul li ul li a:hover {
     position: relative;
 }
 .header__account a::before {
-    background: #898989 none repeat scroll 0 0;
-    content: "";
     height: 15px;
     position: absolute;
     right: 0;
@@ -376,6 +374,37 @@ nav.off__canvars--menu ul li ul li a:hover {
 }
 
 
+#drop_login.dropdown-menu{
+  position: relative;
+  background: #ffffff none repeat scroll 0 0;
+  box-shadow: 0 0 0px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  position: absolute;
+  transition: all 0.2s ease-in-out 0s;
+  width: 220px;
+  z-index: 999;
+  color: #c43b68;
+  border: 1px solid #000;
+  border: 1px solid rgba(0,0,0,0.0);
+  border-radius: 1px;
+  font-family: 'Poppins', sans-serif;
+  padding-left: 0.5rem;
+  font-size:8px;
+}
+.scroll-header drop_login.dropdown-menu{
+  top: 120%;
+  color: #c43b68;
+}
+.scroll-header drop_login.dropdown-menu:hover {
+  top: 100%;
+  color: #c43b68;
+}
+drop_login.dropdown-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    top: 100%;
+    color: #c43b68;
+}
 
 
 /*-------------------------------
