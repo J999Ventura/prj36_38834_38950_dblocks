@@ -87,8 +87,8 @@
                                             <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
                                                 <div class="category">
                                                     <div class="ht__cat__thumb">
-                                                        <a href="/product-details">
-                                                            <img src="{{url_for('static', filename = 'images/product/1.jpg')}}" alt="product images">
+                                                        <a href="/product-details/{{userProd.user_id}}/{{userProd.id}}">
+                                                            <img src="{{url_for('static', filename = 'users/' )}}{{userProd.user_id}}/{{userProd.id}}.jpg" alt="product images">
                                                         </a>
                                                     </div>
                                                     <div class="fr__hover__info">

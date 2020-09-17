@@ -11,8 +11,10 @@ const password = document.getElementById('password_reg');
 const submit_button = document.getElementById('submitreg');
 
 conf_password.addEventListener('input', function (event) {
-  if (conf_password.value == password.value) {
+  if (conf_password.value == password.value && conf_password.value != "") {
     submit_button.disabled = false;
+    div_conf_password.removeChild(div_conf_password.childNodes[3]);
+    div_conf_password.className = 'form-group';
   } else {
     showConfPassFormError();
     submit_button.disabled = true;

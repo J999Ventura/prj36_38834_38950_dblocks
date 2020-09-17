@@ -65,7 +65,7 @@ function addElementsToCart(product_list, element_to_print){
                 var name = info[2];
                 var user_id = info[3];
                 totalprice += Number(price);
-                innerHTML += "<div id='"+id+"' class='shp__single__product'><div class='shp__pro__thumb'><a href='/product-details'><img src='static/users/"+user_id+"/"+id+".jpg' alt='product images'></a></div><div class='shp__pro__details'><h2><a href='/product-details'>"+name+"</a></h2><span class='quantity'>QTY: 1</span><span class='shp__price'>€"+price+"</span></div><div class='remove__btn'><a onClick=removeItem('"+id+"') title='Remove this item'><i class='zmdi zmdi-close'></i></a></div></div>";
+                innerHTML += "<div id='"+id+"' class='shp__single__product'><div class='shp__pro__thumb'><a href='/product-details/"+user_id+"/"+id+"'><img src='static/users/"+user_id+"/"+id+".jpg' alt='product images'></a></div><div class='shp__pro__details'><h2><a href='/product-details'>"+name+"</a></h2><span class='quantity'>QTY: 1</span><span class='shp__price'>€"+price+"</span></div><div class='remove__btn'><a onClick=removeItem('"+id+"') title='Remove this item'><i class='zmdi zmdi-close'></i></a></div></div>";
                 cart_count += 1;
         }
     }catch(err){ }
