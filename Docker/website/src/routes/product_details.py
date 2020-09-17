@@ -1,11 +1,12 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, \
     dummy, request, render_template, session, redirect, \
-    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getProductDetails
+    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getProductDetails, getTopRated
 
 
-@app.route("/product-details", methods=['GET', 'POST'])
-def product_details():
+#@app.route("/product-details", methods=['GET', 'POST'])
+@app.route("/product-details/<int:user_id>/<int:product_id>", methods=['GET', 'POST'])
+def product_details(user_id, product_id):
     ######## Fazer downgrade da resolucao quando fizer download #### remover todas as resolucoes mais baixas #####
 
     formlog= LoginForm()
@@ -60,8 +61,9 @@ def product_details():
                            categories=g.categories,
                            tags=dummy.tags,
                            formlog=formlog,
-                           prod=getProductDetails(),
+                           prod=getProductDetails(user_id, product_id),
                            formreg=formreg,
                            formresend=formresend,
-                           formrecover=formrecover
+                           formrecover=formrecover,
+                           topRatedProds=getTopRated()
                            )

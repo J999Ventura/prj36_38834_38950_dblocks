@@ -4,7 +4,7 @@ from ..forms.upload_product import UploadForm
 from ..forms.pay import PaymentForm
 from ..forms.recover_password import RecoverPasswordForm
 from ..forms.confirm_email import ConfirmEmailForm
-from ..connectors.api_connector import getProductDetails, getWishListProducts, sellProduct, login, register, recoverPassword, resendEmail, getCategories, getCategoryProducts, getNewProductsArrival
+from ..connectors.api_connector import getProductDetails, getWishListProducts, sellProduct, getProductsForsale, login, register, recoverPassword, resendEmail, getCategories, getCategoryProducts, getNewProductsArrival, getAllUserProducts, getTopRated
 from ..connectors.payment import checkoutPayment
 from ..connectors.recover_password import setNewPassword
 from ..connectors.confirm_email import setConfirmEmail

@@ -13,7 +13,7 @@
                                 <div class="product__big__images">
                                     <div class="portfolio-full-image tab-content">
                                         <div role="tabpanel" class="tab-pane fade in active" id="img-tab-1">
-                                            <img src="static/users/{{prod.user_id}}/{{prod.id}}.jpg" alt="full-image">
+                                            <img src="{{url_for('static', filename = 'users/' )}}{{prod.user_id}}/{{prod.id}}.jpg" alt="product images">
                                         </div>
                                     </div>
                                 </div>
@@ -72,130 +72,53 @@
         </section>
         <!-- End Product Details Area -->
 
-        <!-- Start Product Area -->
-        <section class="htc__product__area--2 pb--100 product-details-res">
+        <<!-- Start Top Rated Area -->
+        <section class="top__rated__area bg__white pt--100 pb--110">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-lg-12">
                         <div class="section__title--2 text-center">
-                            <h2 class="title__line">New Arrivals</h2>
-                            <p>But I must explain to you how all this mistaken idea</p>
+                            <h2 class="title__line">Top Rated</h2>
+                            <p>The best costumers reviews</p>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="product__wrap clearfix">
-                        <!-- Start Single Product -->
-                        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-                            <div class="category">
-                                <div class="ht__cat__thumb">
-                                    <a href="product-details.html">
-                                        <img src="images/product/1.jpg" alt="product images">
+                <div class="row mt--20">
+                    <!-- Start Single Product -->
+                    {% for topRatedProd in topRatedProds %}
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <div class="htc__best__product">
+                                <div class="htc__best__pro__thumb">
+                                    <a href="/product-details/{{topRatedProd.user_id}}/{{topRatedProd.id}}">
+                                        <img src="{{url_for('static', filename = 'users/' )}}{{topRatedProd.user_id}}/{{topRatedProd.id}}.jpg" alt="product images">
                                     </a>
                                 </div>
-                                <div class="fr__hover__info">
-                                    <ul class="product__action">
-                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
-
-                                        <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-
-                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
+                                <div class="htc__best__product__details">
+                                    <h2>
+                                        <a href="/product-details/{{topRatedProd.user_id}}/{{topRatedProd.id}}">{{topRatedProd.name}}</a>
+                                    </h2>
+                                    <ul class="rating">
+                                        <li><i class="icon-star icons"></i></li>
+                                        <li><i class="icon-star icons"></i></li>
+                                        <li><i class="icon-star icons"></i></li>
+                                        <li class="old"><i class="icon-star icons"></i></li>
+                                        <li class="old"><i class="icon-star icons"></i></li>
                                     </ul>
-                                </div>
-                                <div class="fr__product__inner">
-                                    <h4><a href="product-details.html">Product Title Here </a></h4>
-                                    <ul class="fr__pro__prize">
-                                        <li class="old__prize">$30.3</li>
-                                        <li>$25.9</li>
+                                    <ul  class="top__pro__prize">
+                                        <li class="old__prize">€ {{topRatedProd.price}}</li>
                                     </ul>
+                                    <div class="best__product__action">
+                                        <ul class="product__action--dft">
+                                            <li><a onclick="addToFavorit(this, '{{topRatedProd.id}}', '{{topRatedProd.user_id}}')"><i class="icon-heart icons"></i></a></li>
+                                            <li><a onclick="addToCart(this, '{{topRatedProd.id}}', '{{topRatedProd.price}}', '{{topRatedProd.name}}', '{{topRatedProd.user_id}}')"><i class="icon-handbag icons"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Single Product -->
-                        <!-- Start Single Product -->
-                        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-                            <div class="category">
-                                <div class="ht__cat__thumb">
-                                    <a href="product-details.html">
-                                        <img src="images/product/2.jpg" alt="product images">
-                                    </a>
-                                </div>
-                                <div class="fr__hover__info">
-                                    <ul class="product__action">
-                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
-
-                                        <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-
-                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="fr__product__inner">
-                                    <h4><a href="product-details.html">Product Title Here </a></h4>
-                                    <ul class="fr__pro__prize">
-                                        <li class="old__prize">$30.3</li>
-                                        <li>$25.9</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Product -->
-                        <!-- Start Single Product -->
-                        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-                            <div class="category">
-                                <div class="ht__cat__thumb">
-                                    <a href="product-details.html">
-                                        <img src="images/product/3.jpg" alt="product images">
-                                    </a>
-                                </div>
-                                <div class="fr__hover__info">
-                                    <ul class="product__action">
-                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
-
-                                        <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-
-                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="fr__product__inner">
-                                    <h4><a href="product-details.html">Product Title Here </a></h4>
-                                    <ul class="fr__pro__prize">
-                                        <li class="old__prize">$30.3</li>
-                                        <li>$25.9</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Product -->
-                        <!-- Start Single Product -->
-                        <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-                            <div class="category">
-                                <div class="ht__cat__thumb">
-                                    <a href="product-details.html">
-                                        <img src="images/product/4.jpg" alt="product images">
-                                    </a>
-                                </div>
-                                <div class="fr__hover__info">
-                                    <ul class="product__action">
-                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
-
-                                        <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-
-                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="fr__product__inner">
-                                    <h4><a href="product-details.html">Product Title Here </a></h4>
-                                    <ul class="fr__pro__prize">
-                                        <li class="old__prize">$30.3</li>
-                                        <li>$25.9</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Product -->
-                    </div>
+                    {% endfor %}
+                    <!-- End Single Product -->
                 </div>
             </div>
         </section>
-        <!-- End Product Area -->
 {% endblock content %}

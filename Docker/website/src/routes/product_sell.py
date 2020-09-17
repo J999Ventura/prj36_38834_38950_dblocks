@@ -1,7 +1,7 @@
 from . import app, APP_ROOT, os
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, UploadForm, \
     dummy, request, render_template, session, redirect, url_for, g, login, json, register, \
-    recoverPassword, resendEmail, flash, sellProduct
+    recoverPassword, resendEmail, flash, sellProduct, getProductsForsale
 from . import water_mark_image
 from PIL import Image
 
@@ -74,8 +74,8 @@ def product_sell():
                     product_category_id = request.form['prodcatg']
                     for file in request.files.getlist("prodimage"):
                         photo = Image.open(file)
-                        product_w, product_h = photo.size
-                        message, type, product_id = sellProduct(product_name, product_description, product_price, g.user["id"], product_category_id, product_w, product_h)
+                        #product_w, product_h = photo.size
+                        message, type, product_id = sellProduct(product_name, product_description, product_price, g.user["id"], product_category_id)
                         if type == "success":
                             filename = product_id+".jpg"
                             destination = "\\".join([target, filename])
@@ -88,7 +88,7 @@ def product_sell():
 
             return render_template('product-sell.html', title='Product Sale',
                                    categories=g.categories,
-                                   userProducts=dummy.newProds, #getProductsForsale()
+                                   userProducts=getProductsForsale(3),
                                    formlog=formlog,
                                    formreg=formreg,
                                    formresend=formresend,

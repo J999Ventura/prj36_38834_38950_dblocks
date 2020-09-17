@@ -14,14 +14,14 @@
                                             <h2>{{slideNew.subTitle}}</h2>
                                             <h1>{{slideNew.title}}</h1>
                                             <div class="cr__btn">
-                                                <a href="/product-details">Shop Now</a>
+                                                <a href="/product-details/{{slideNew.product_user_id}}/{{slideNew.product_id}}">Shop Now</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-5 col-xs-12 col-md-5">
                                     <div class="slide__thumb">
-                                        <img class="slider-news" src="{{slideNew.image}}" alt="slider images">
+                                        <img class="slider-news" src="static/users/{{slideNew.product_user_id}}/{{slideNew.product_id}}.jpg" alt="slider images">
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                 <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
                                     <div class="category">
                                         <div class="ht__cat__thumb">
-                                            <a href="/product-details">
+                                            <a href="/product-details/{{newProd.user_id}}/{{newProd.id}}">
                                                 <img src="static/users/{{newProd.user_id}}/{{newProd.id}}.jpg" alt="product images">
                                             </a>
                                         </div>
@@ -156,13 +156,13 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                             <div class="htc__best__product">
                                 <div class="htc__best__pro__thumb">
-                                    <a href="/product-details">
+                                    <a href="/product-details/{{topRatedProd.user_id}}/{{topRatedProd.id}}">
                                         <img src="static/users/{{topRatedProd.user_id}}/{{topRatedProd.id}}.jpg" alt="small product">
                                     </a>
                                 </div>
                                 <div class="htc__best__product__details">
                                     <h2>
-                                        <a href="/product-details">{{topRatedProd.name}}</a>
+                                        <a href="/product-details/{{topRatedProd.user_id}}/{{topRatedProd.id}}">{{topRatedProd.name}}</a>
                                     </h2>
                                     <ul class="rating">
                                         <li><i class="icon-star icons"></i></li>
