@@ -1,33 +1,24 @@
-from api.v1.routes import v1_bp
-from api.v1.models.user_model import Users
-from api.v1.routes.utils import get_products_list
-from flask import jsonify, request
-from api.v1.authentication.decorators import auth_required, roles_required
+from api.v1.routes import users_bp
+from flask import jsonify
+from api.v1.authentication.decorators import auth_required
 from api.v1.authentication.utilities import current_user
-from flask import Response
+from api.v1.models.authentication.user_model import Users
 import json
+from flask import Response
 
 
-@v1_bp.route('/open')
-@auth_required
-def open():
-    user = current_user()
-    print(user.email)
-    return jsonify({'result': ''})
+# produtos por utilizador
+@users_bp.route('/products/<string:public_id>', methods=['GET'])
+@users_bp.route('/products/<string:public_id>/<int:product_id>', methods=['GET'])
+def get_user_products(public_id, product_id=0):
+    try:
+        user = Users.identify(public_id)
+        user_data = user.get_user_info()
+        products = user_data['products']
+        if product_id != 0:
+            product = [p for p in products if p["id"] == product_id]
+            return Response(json.dumps({'products': product}), status=200, mimetype='application/json')
+        return Response(json.dumps({'products': products}), status=200, mimetype='application/json')
+    except (AttributeError, ValueError):
+        return Response(json.dumps({'products': []}), status=200, mimetype='application/json')
 
-
-
-@v1_bp.route('/user/products', methods=['POST'])
-def get_user_products():
-    json_data = request.get_json()
-    public_id = json_data['public_id']
-    # obter o current user
-    #user = current_user()
-    # comparar os public_id
-    #if user:
-
-    #if user.public_id == public_id:
-    # retornar os produtos do utilizador com o public_id
-    user_products = get_products_list(Users.get_products(public_id))
-
-    return Response(json.dumps(user_products), status=201, mimetype='application/json')

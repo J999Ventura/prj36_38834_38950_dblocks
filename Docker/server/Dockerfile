@@ -6,13 +6,13 @@ ENV MAIL_USERNAME=betamain10@gmail.com
 ENV MAIL_PASSWORD=alphamain_10
 ENV PRAETORIAN_CONFIRMATION_SENDER=betamain10@gmail.com
 ENV PRAETORIAN_RESET_SENDER=betamain10@gmail.com
-ENV PRAETORIAN_RESET_URI=https://captureapi-2uo2zekoka-ew.a.run.app/api/v1/auth/completeresetpwd
-ENV SQLALCHEMY_DATABASE_URI=postgres+pg8000://postgres:captureadmin@/capturedb?unix_sock=/cloudsql/polished-bounty-276011:europe-west1:capturedb/.s.PGSQL.5432
+ENV PRAETORIAN_RESET_URI=http://localhost:8000/api/v1/auth/completeresetpwd
+ENV SQLALCHEMY_DATABASE_URI=postgres://postgres:captureadmin@34.78.136.85:5432/capturedb
 ENV MAIL_SERVER=smtp.googlemail.com
 ENV MAIL_PORT=587
 ENV MAIL_USE_TLS=True
 ENV PRAETORIAN_CONFIRMATION_SUBJECT=UserRegistration
-ENV PRAETORIAN_CONFIRMATION_URI=https://captureapi-2uo2zekoka-ew.a.run.app/api/v1/auth/verify
+ENV PRAETORIAN_CONFIRMATION_URI=http://localhost:8000/api/v1/auth/verify
 ENV JWT_ACCESS_LIFESPAN=24hours
 ENV JWT_REFRESH_LIFESPAN=2days
 
@@ -24,4 +24,3 @@ RUN pip install --upgrade pip && \
 
 
 CMD gunicorn --worker-class gevent --workers 4 --bind 0.0.0.0:8080 wsgi:app --max-requests 10000 --timeout 5 --keep-alive 5 --log-level info --reload
-#CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
