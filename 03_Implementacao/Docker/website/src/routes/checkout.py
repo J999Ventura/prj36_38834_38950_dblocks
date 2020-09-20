@@ -3,7 +3,7 @@ from flask import send_file
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, PaymentForm, \
     dummy, request, render_template, session, redirect, \
     url_for, g, login, json, register, recoverPassword, resendEmail, checkoutPayment,\
-    flash
+    flash, getCategories
 
 
 @app.route("/checkout", methods=['GET', 'POST'])
@@ -71,7 +71,7 @@ def checkout():
             flash('Wrong inputs, try to register again', 'danger')
     if g.user:
         return render_template('checkout.html', title='Contact',
-                               categories=g.categories,
+                               categories=getCategories(),
                                tags=dummy.tags,
                                sizes=dummy.sizes,
                                formlog=formlog,

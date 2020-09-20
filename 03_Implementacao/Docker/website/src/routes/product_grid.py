@@ -1,7 +1,7 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, \
     dummy, request, render_template, session, redirect, \
-    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getCategoryProducts
+    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getCategoryProducts, getCategories
 
 
 @app.route("/product-grid/<string:category>/<int:page>", methods=['GET', 'POST'])
@@ -61,7 +61,7 @@ def searchProduct(category=None, page=1):
             flash('Wrong inputs, try to register again', 'danger')
 
     return render_template('product-grid.html', title='Products',
-                           categories=g.categories,
+                           categories=getCategories(),
                            tags=dummy.tags,
                            sizes=dummy.sizes,
                            allCategoryProducts=getCategoryProducts(categoryName=category, page=page),

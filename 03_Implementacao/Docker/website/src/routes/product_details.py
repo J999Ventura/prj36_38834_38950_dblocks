@@ -1,7 +1,7 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, \
     dummy, request, render_template, session, redirect, \
-    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getProductDetails, getTopRated
+    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getProductDetails, getTopRated,getCategories
 
 
 #@app.route("/product-details", methods=['GET', 'POST'])
@@ -58,7 +58,7 @@ def product_details(user_id, product_id):
             flash('Wrong inputs, try to register again', 'danger')
 
     return render_template('product-details.html', title='Product',
-                           categories=g.categories,
+                           categories=getCategories(),
                            tags=dummy.tags,
                            formlog=formlog,
                            prod=getProductDetails(user_id, product_id),

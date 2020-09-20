@@ -1,7 +1,7 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, ConfirmEmailForm, \
     request, render_template, session, redirect, \
-    url_for, g, login, json, register, recoverPassword, resendEmail, flash, setConfirmEmail
+    url_for, g, login, json, register, recoverPassword, resendEmail, flash, setConfirmEmail, getCategories
 
 @app.route('/confirm-email/{token}', methods=['GET', 'POST'])
 def confirm_email(token):
@@ -64,7 +64,7 @@ def confirm_email(token):
 
 
     return render_template('confirm-email.html', title='Home',
-                           categories=g.categories,
+                           categories=getCategories(),
                            formlog=formlog,
                            formreg=formreg,
                            formresend=formresend,

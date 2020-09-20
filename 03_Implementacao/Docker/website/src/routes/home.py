@@ -1,7 +1,7 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, \
     dummy, request, render_template, session, redirect, \
-    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getNewProductsArrival, getTopRated
+    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getNewProductsArrival, getTopRated,getCategories
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -57,7 +57,7 @@ def index():
 
 
     return render_template('index.html', title='Home',
-                           categories=g.categories,
+                           categories=getCategories(),
                            newProds=getNewProductsArrival(),
                            topRatedProds=getTopRated(),
                            slideNews=dummy.slideNews,

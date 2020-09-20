@@ -18,10 +18,7 @@ import json
 def before_request():
     g.user = None
 
-    try:
-        c = g.categories
-    except:
-        g.categories = getCategories()
-
     if 'user' in session:
         g.user = session['user']
+
+

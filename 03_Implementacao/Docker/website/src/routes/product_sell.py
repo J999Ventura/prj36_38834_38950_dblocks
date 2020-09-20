@@ -1,7 +1,7 @@
 from . import app, APP_ROOT, os
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, UploadForm, \
     dummy, request, render_template, session, redirect, url_for, g, login, json, register, \
-    recoverPassword, resendEmail, flash, sellProduct, getProductsForsale
+    recoverPassword, resendEmail, flash, sellProduct, getProductsForsale, getCategories
 from . import water_mark_image
 from PIL import Image
 
@@ -87,7 +87,7 @@ def product_sell():
                     flash('Wrong inputs, try again', 'danger')
 
             return render_template('product-sell.html', title='Product Sale',
-                                   categories=g.categories,
+                                   categories=getCategories(),
                                    userProducts=getProductsForsale(3),
                                    formlog=formlog,
                                    formreg=formreg,

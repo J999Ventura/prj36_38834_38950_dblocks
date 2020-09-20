@@ -1,7 +1,7 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, \
     dummy, request, render_template, session, redirect, \
-    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getWishListProducts
+    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getWishListProducts, getCategories
 
 
 @app.route('/wishlist')
@@ -58,7 +58,7 @@ def wishlist(page=1):
 
     if g.user:
         return render_template('wishlist.html', title='Wishlist',
-                               categories=g.categories,
+                               categories=getCategories(),
                                wishProds=getWishListProducts(),
                                formlog=formlog,
                                formreg=formreg,

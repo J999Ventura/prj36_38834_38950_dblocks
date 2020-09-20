@@ -1,4 +1,4 @@
-from . import User_model, send_request, api_url, json
+from . import User_model, send_request, api_url, json, get_request
 from flask import jsonify
 
 def login(email, password):
@@ -54,8 +54,8 @@ def sellProduct(product_name, product_description, product_price, product_user_i
 
 
 def getCategories():
-    response_json, response_status_code = send_request(api_url+"/categories", "{}")
-    if response_status_code == 200:
+    response_json, response_status_code = get_request(api_url+"/categories")
+    if response_status_code == 200 or response_status_code == 201:
         return response_json['categories']
     return response_json['message'], "danger"
     #response_json=json.loads('{"categories":[{"id":"10", "name": "Nature"},{"id":"11", "name": "City"},{"id":"12", "name": "Vintage"}]}')
@@ -63,7 +63,7 @@ def getCategories():
     #return response_json
 
 def getProductDetails(user_owner_id, product_id):
-     #response_json, response_status_code = send_request(api_url+"/product/"+user_owner_id+"/"+product_id+"/details")
+     #response_json, response_status_code = get_request(api_url+"/product/"+user_owner_id+"/"+product_id+"/details")
      #if response_status_code == 200:
      #   return response_json['products']
 
@@ -72,7 +72,7 @@ def getProductDetails(user_owner_id, product_id):
 
 
 def getNewProductsArrival():
-     #response_json, response_status_code = send_request(api_url+"/products/new_arrivals")
+     #response_json, response_status_code = get_request(api_url+"/products/new_arrivals")
      #if response_status_code == 200:
      #   return response_json['products']
      #return response_json['message'], "danger"
@@ -199,12 +199,11 @@ def getNewProductsArrival():
         }
         ]
 
-
 def getCategoryProducts(categoryName=None, page=1):
     #if categoryName is None:
-    #    response_json, response_status_code = send_request(api_url+"/products/" + str(page))
+    #    response_json, response_status_code = get_request(api_url+"/products/" + str(page))
     #else:
-    #    response_json, response_status_code = send_request(api_url+"/products/" + categoryName + "/" + str(page))
+    #    response_json, response_status_code = get_request(api_url+"/products/" + categoryName + "/" + str(page))
 
     #if response_status_code == 200:
     #    return response_json['products']
@@ -334,7 +333,7 @@ def getCategoryProducts(categoryName=None, page=1):
 
 
 def getWishListProducts():
-    # response_json, response_status_code = send_request(api_url+"/products/wishlist")
+    # response_json, response_status_code = get_request(api_url+"/products/wishlist")
     # if response_status_code == 200:
     #    return response_json['products']
     #return response_json['message'], "danger"
@@ -464,7 +463,7 @@ def getWishListProducts():
 
 
 def getTopRated():
-    # response_json, response_status_code = send_request(api_url+"/products/top_rated")
+    # response_json, response_status_code = get_request(api_url+"/products/top_rated")
     # if response_status_code == 200:
     #    return response_json['products']
     #return response_json['message'], "danger"
@@ -503,7 +502,7 @@ def getTopRated():
 
 
 def getAllUserProducts(user_id):
-    # response_json, response_status_code = send_request(api_url+"/products/"+ user_id)
+    # response_json, response_status_code = get_request(api_url+"/products/"+ user_id)
     # if response_status_code == 200:
     #    return response_json['products']
     #return response_json['message'], "danger"
@@ -592,7 +591,7 @@ def getAllUserProducts(user_id):
 
 
 def getProductsForsale(user_id):
-    # response_json, response_status_code = send_request(api_url+"/user/pforsale/"+user_id)
+    # response_json, response_status_code = get_request(api_url+"/user/pforsale/"+user_id)
     # if response_status_code == 200:
     #   return response_json['products']
     # return response_json['message'], "danger"

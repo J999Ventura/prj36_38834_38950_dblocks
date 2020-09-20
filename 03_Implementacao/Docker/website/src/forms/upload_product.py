@@ -12,5 +12,12 @@ class UploadForm(FlaskForm):
     prodprice = DecimalField('Price in €', places=2, rounding=ROUND_HALF_UP, validators=[DataRequired(), NumberRange(min=0.01, max=10000, message="You must enter a price between, 0.01 and 10000")])
     proddesc = StringField('Description', validators=[Length(min=2, max=100)])
     categories = getCategories()
+    print("****************")
+    print(categories)
+    for category in categories:
+        print("-------")
+        print(category)
+        print(category['id'])
+        print(category['name'])
     prodcatg = SelectField('Category', choices=[(category['id'], category['name']) for category in categories], validators=[DataRequired()])
     submitupload = SubmitField('Sell')
