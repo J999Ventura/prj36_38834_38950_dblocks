@@ -81,6 +81,6 @@ def checkout():
                                formpayment=formpayment
                                )
 
-    return redirect(url_for('index'))
+        return redirect(url_for('index'))
 
 
