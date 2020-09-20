@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+{% block content %}
+
+        <!-- Start Product Details Area -->
+        <section class="htc__product__details bg__white ptb--100">
+            <!-- Start Product Details Top -->
+            <div class="htc__product__details__top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                            <div class="htc__product__details__tab__content">
+                                <!-- Start Product Big Images -->
+                                <div class="product__big__images">
+                                    <div class="portfolio-full-image tab-content">
+                                        <div role="tabpanel" class="tab-pane fade in active" id="img-tab-1">
+                                            <img src="{{url_for('static', filename = 'users/' )}}{{prod.user_id}}/{{prod.id}}.jpg" alt="product images">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Product Big Images -->
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 smt-40 xmt-40">
+                            <div class="ht__product__dtl">
+                                <h2>{{prod.name}}</h2>
+                                <h6>Seller: <span>{{prod.user_name}}</span></h6>
+                                <ul class="rating">
+                                    <li><i class="icon-star icons"></i></li>
+                                    <li><i class="icon-star icons"></i></li>
+                                    <li><i class="icon-star icons"></i></li>
+                                    <li class="old"><i class="icon-star icons"></i></li>
+                                    <li class="old"><i class="icon-star icons"></i></li>
+                                </ul>
+                                <ul  class="pro__prize">
+                                    <li>€{{prod.price}}</li>
+                                </ul>
+                                <p class="pro__info">{{prod.description}}</p>
+                                <div class="ht__pro__desc">
+                                    <div class="sin__desc">
+                                        <p><span>Availability:</span> In Stock</p>
+                                    </div>
+                                    <div class="sin__desc align--left">
+                                        <p><span>Size: You can choose the image size/resolutions once you purchase the photo</span></p>
+                                    </div>
+                                    <div class="sin__desc align--left">
+                                        <p><span>Categories:</span></p>
+                                        <ul class="pro__cat__list">
+                                            {% for category in categories %}
+                                                <li><a href="#">{{category.name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="sin__desc align--left">
+                                        <p><span>Product tags:</span></p>
+                                        <ul class="pro__cat__list">
+                                            {% for tag in tags %}
+                                                <li><a href="#">{{tag.name}}</a></li>
+                                                <li><a href="#">{{tag.name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="cr__btn">
+                                        <a href="#">Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Product Details Top -->
+        </section>
+        <!-- End Product Details Area -->
+
+        <<!-- Start Top Rated Area -->
+        <section class="top__rated__area bg__white pt--100 pb--110">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__title--2 text-center">
+                            <h2 class="title__line">Top Rated</h2>
+                            <p>The best costumers reviews</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt--20">
+                    <!-- Start Single Product -->
+                    {% for topRatedProd in topRatedProds %}
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <div class="htc__best__product">
+                                <div class="htc__best__pro__thumb">
+                                    <a href="/product-details/{{topRatedProd.user_id}}/{{topRatedProd.id}}">
+                                        <img src="{{url_for('static', filename = 'users/' )}}{{topRatedProd.user_id}}/{{topRatedProd.id}}.jpg" alt="product images">
+                                    </a>
+                                </div>
+                                <div class="htc__best__product__details">
+                                    <h2>
+                                        <a href="/product-details/{{topRatedProd.user_id}}/{{topRatedProd.id}}">{{topRatedProd.name}}</a>
+                                    </h2>
+                                    <ul class="rating">
+                                        <li><i class="icon-star icons"></i></li>
+                                        <li><i class="icon-star icons"></i></li>
+                                        <li><i class="icon-star icons"></i></li>
+                                        <li class="old"><i class="icon-star icons"></i></li>
+                                        <li class="old"><i class="icon-star icons"></i></li>
+                                    </ul>
+                                    <ul  class="top__pro__prize">
+                                        <li class="old__prize">€ {{topRatedProd.price}}</li>
+                                    </ul>
+                                    <div class="best__product__action">
+                                        <ul class="product__action--dft">
+                                            <li><a onclick="addToFavorit(this, '{{topRatedProd.id}}', '{{topRatedProd.user_id}}')"><i class="icon-heart icons"></i></a></li>
+                                            <li><a onclick="addToCart(this, '{{topRatedProd.id}}', '{{topRatedProd.price}}', '{{topRatedProd.name}}', '{{topRatedProd.user_id}}')"><i class="icon-handbag icons"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!-- End Single Product -->
+                </div>
+            </div>
+        </section>
+{% endblock content %}

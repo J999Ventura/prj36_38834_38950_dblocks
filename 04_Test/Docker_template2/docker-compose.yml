@@ -1,0 +1,17 @@
+version: '3'
+
+services:   
+    product-services:
+        build: ./server
+        volumes:
+            - ./server:/usr/src/app
+        ports:
+            - "5000:8080"    
+    website:
+        build: ./website
+        volumes:
+            - ./website:/usr/src/app
+        ports:
+            - "5001:5001"
+        depends_on:
+            - product-services
