@@ -11,7 +11,7 @@ def create_app():
     routes.init_app(app)
 
     # praetorian and email
-    from api.v1.models.user_model import Users
+    from api.v1.models.authentication.user_model import Users
     guard.init_app(app, Users)
     mail.init_app(app)
 

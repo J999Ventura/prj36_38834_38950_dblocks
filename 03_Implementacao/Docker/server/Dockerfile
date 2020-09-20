@@ -7,7 +7,7 @@ ENV MAIL_PASSWORD=alphamain_10
 ENV PRAETORIAN_CONFIRMATION_SENDER=betamain10@gmail.com
 ENV PRAETORIAN_RESET_SENDER=betamain10@gmail.com
 ENV PRAETORIAN_RESET_URI=http://localhost:8000/api/v1/auth/completeresetpwd
-ENV SQLALCHEMY_DATABASE_URI=postgres://postgres:captureadmin@34.78.136.85:5432/capturedb
+ENV SQLALCHEMY_DATABASE_URI=postgres://postgres:captureadm@35.187.10.224:5432/capturedb
 ENV MAIL_SERVER=smtp.googlemail.com
 ENV MAIL_PORT=587
 ENV MAIL_USE_TLS=True
@@ -24,3 +24,4 @@ RUN pip install --upgrade pip && \
 
 
 CMD gunicorn --worker-class gevent --workers 4 --bind 0.0.0.0:8080 wsgi:app --max-requests 10000 --timeout 5 --keep-alive 5 --log-level info --reload
+#CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]

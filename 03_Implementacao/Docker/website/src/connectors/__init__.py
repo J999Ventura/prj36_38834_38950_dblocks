@@ -2,7 +2,7 @@ from ..models import User_model
 import requests
 import json
 
-api_url="https://captureapi-2uo2zekoka-ew.a.run.app/api/v1";
+api_url="https://localhost:5000/api/v1";
 
 def send_request(url, data):
     messageDict = '{"message": "Something went wrong!"}'

@@ -2,13 +2,13 @@ from . import User_model, send_request, api_url, json
 from flask import jsonify
 
 def login(email, password):
-    #data = {"email": email, "password": password}
-    #response_json, response_status_code = send_request(api_url+"/auth/login", data)
-    #
-    #if response_status_code == 201:
-    #    user = response_json['user']
-    #    return User_model.User(id=user['id'], fname=user['first_name'], lname=user['last_name'], email=user['email'], role=user['role'], bdate=user['birth_date'], image=user['profile_image'], token=response_json['access_token'])
-    return User_model.User(id=2, fname="Joao", lname="Ventura", email="devil_man_13@hotmail.com", role=0, bdate="02/02/2020", image="2/8569", token="321CEFG4r5fFVWe")
+    data = {"email": email, "password": password}
+    response_json, response_status_code = send_request(api_url+"/auth/login", data)
+    
+    if response_status_code == 201:
+        user = response_json['user']
+        return User_model.User(id=user['id'], fname=user['first_name'], lname=user['last_name'], email=user['email'], role=user['role'], bdate=user['birth_date'], image=user['profile_image'], token=response_json['access_token'])
+    #return User_model.User(id=2, fname="Joao", lname="Ventura", email="devil_man_13@hotmail.com", role=0, bdate="02/02/2020", image="2/8569", token="321CEFG4r5fFVWe")
 
 
 def register(fname, lname, email, password, bdate):
@@ -54,13 +54,13 @@ def sellProduct(product_name, product_description, product_price, product_user_i
 
 
 def getCategories():
-    #response_json, response_status_code = send_request(api_url+"/categories", "{}")
-    #if response_status_code == 200:
-    #    return response_json['categories']
-    #return response_json['message'], "danger"
-    response_json=json.loads('{"categories":[{"id":"10", "name": "Nature"},{"id":"11", "name": "City"},{"id":"12", "name": "Vintage"}]}')
-    response_json = response_json['categories']
-    return response_json
+    response_json, response_status_code = send_request(api_url+"/categories", "{}")
+    if response_status_code == 200:
+        return response_json['categories']
+    return response_json['message'], "danger"
+    #response_json=json.loads('{"categories":[{"id":"10", "name": "Nature"},{"id":"11", "name": "City"},{"id":"12", "name": "Vintage"}]}')
+    #response_json = response_json['categories']
+    #return response_json
 
 def getProductDetails(user_owner_id, product_id):
      #response_json, response_status_code = send_request(api_url+"/product/"+user_owner_id+"/"+product_id+"/details")
