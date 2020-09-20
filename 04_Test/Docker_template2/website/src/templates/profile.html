@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+{% block content %}
+
+        <section class="htc__good__sale bg__cat--3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 profile_image">
+                        <img class="img-fluid" src="/static/images/product-2/sm-img-2/1.jpg">
+                    </div>
+                    <div class="col-md-9 col-lg-9">
+                        <h2>{{g.user["fname"]}} {{g.user["lname"]}}</h2>
+                        <br>
+                        <p>This is a sort description of the user, if he wants to have one!</p>
+                        <br>
+                    </div>
+                </div>
+	        </div>
+        </section>
+        <div class="profile_type_products_selection">
+            <ul class="nav nav-tabs" id="tabContent">
+                  <li class="active col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#sell_products" data-toggle="tab">Products for sale</a></li>
+                  <li class="col-md-6 col-lg-6 col-sm-6 col-xs-6"><a href="#buy_products" data-toggle="tab">Purchased Product</a></li>
+             </ul>
+        </div>
+        <div class="tab-content">
+              <div class="tab-pane active" id="sell_products">
+                     <!-- Start Category Area -->
+                    <section class="htc__category__area ptb--100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="section__title--2 text-center">
+                                        <h2 class="title__line">Products for sale</h2>
+                                        <p>These are the products that you are selling</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="htc__product__container">
+                                <div class="row">
+                                    <div class="product__list clearfix mt--30">
+                                        <!-- Start Single Category -->
+                                        {% for userProd in userProducts %}
+
+                                            <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
+                                                <div class="category">
+                                                    <div class="ht__cat__thumb">
+                                                        <a href="/product-details/{{userProd.user_id}}/{{userProd.id}}">
+                                                            <img src="{{url_for('static', filename = 'users/' )}}{{userProd.user_id}}/{{userProd.id}}.jpg" alt="product images">
+                                                        </a>
+                                                    </div>
+                                                    <div class="fr__hover__info">
+                                                        <ul class="product__action">
+                                                            <li><a href="/wishlist"><i class="icon-heart icons"></i></a></li>
+
+                                                            <li><a href="/cart"><i class="icon-handbag icons"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="fr__product__inner">
+                                                        <h4>
+                                                            <a href="/product-details">
+                                                                {{userProd.name}}
+                                                                <small>,by {{userProd.seller}}</small>
+                                                            </a>
+                                                        </h4>
+                                                        <ul class="fr__pro__prize">
+                                                            <li class="old__prize">€ {{userProd.price}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Start Pagenation -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ul class="htc__pagenation">
+                                   <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                   <li><a href="#">1</a></li>
+                                   <li class="active"><a href="#">3</a></li>
+                                   <li><a href="#">19</a></li>
+                                   <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Pagenation -->
+                    </section>
+                    <!-- End Category Area -->
+              </div>
+              <div class="tab-pane" id="buy_products">
+                     <!-- Start Category Area -->
+                    <section class="htc__category__area ptb--100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="section__title--2 text-center">
+                                        <h2 class="title__line">Purchased Products</h2>
+                                        <p>These are the products that you bought</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="htc__product__container">
+                                <div class="row">
+                                    <div class="product__list clearfix mt--30">
+                                        <!-- Start Single Category -->
+                                        {% for purchased in purchasedProducts %}
+
+                                            <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
+                                                <div class="category">
+                                                    <div class="ht__cat__thumb">
+                                                        <a href="/product-details/{{purchased.user_id}}/{{purchased.id}}">
+                                                            <img src="{{url_for('static', filename = 'users/' )}}{{purchased.user_id}}/{{purchased.id}}.jpg" alt="product images">
+                                                        </a>
+                                                    </div>
+                                                    <div class="fr__hover__info">
+                                                        <ul class="product__action">
+                                                            <li><a href="/wishlist"><i class="icon-heart icons"></i></a></li>
+
+                                                            <li><a href="/cart"><i class="icon-handbag icons"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="fr__product__inner">
+                                                        <h4>
+                                                            <a href="/product-details">
+                                                                {{purchased.name}}
+                                                                <small>,by {{purchased.seller}}</small>
+                                                            </a>
+                                                        </h4>
+                                                        <ul class="fr__pro__prize">
+                                                            <li class="old__prize">€ {{purchased.price}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Start Pagenation -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ul class="htc__pagenation">
+                                   <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                   <li><a href="#">1</a></li>
+                                   <li class="active"><a href="#">3</a></li>
+                                   <li><a href="#">19</a></li>
+                                   <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Pagenation -->
+                    </section>
+                    <!-- End Category Area -->
+               </div>
+         </div>
+
+{% endblock content %}
