@@ -1,0 +1,342 @@
+<!doctype html>
+{% import "bootstrap/wtf.html" as wtf %}
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Web App</title>
+    {% endif %}
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static', filename = 'images/logo/icon.png')}}">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- All css files are included here. -->
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <!-- Owl Carousel min css -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/owl.theme.default.min.css')}}">
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/core.css')}}">
+    <!-- Theme shortcodes/elements style -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/shortcode/shortcodes.css')}}">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/responsive.css')}}">
+    <!-- User style -->
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/custom.css')}}">
+
+
+    <!-- Modernizr JS -->
+    <script src="{{url_for('static', filename = 'js/vendor/modernizr-3.5.0.min.js')}}"></script>
+
+</head>
+
+<body onload="timerRemoveAlert()">
+    <!-- Body main wrapper start -->
+    <div class="wrapper">
+        <!-- Start Header Style -->
+        <header id="htc__header" class="htc__header__area header--one">
+            <!-- Start Mainmenu Area -->
+            <div id="sticky-header-with-topbar" class="mainmenu__wrap sticky__header">
+                <div class="container">
+                    <div class="row">
+                        <div class="menumenu__container clearfix">
+                            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-5">
+                                <div class="logo">
+                                     <a href="{{ url_for('index') }}"><img src="{{url_for('static', filename = 'images/logo/logo.png')}}" alt="logo images"></a>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-lg-8 col-sm-5 col-xs-2">
+                                <nav class="main__menu__nav hidden-xs hidden-sm">
+                                    <ul class="main__menu">
+                                        <li class="drop"><a href="{{ url_for('index') }}">Home</a></li>
+                                        <li class="drop"><a href="#">Category</a>
+                                            <ul class="dropdown">
+                                                {% for category in categories %}
+                                                    <li><a href="/product-grid/{{category.name}}/1">{{category.name}}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        <li><a href="/contact">contact</a></li>
+                                    </ul>
+                                </nav>
+
+                                <div class="mobile-menu clearfix visible-xs visible-sm">
+                                    <nav id="mobile_dropdown">
+                                        <ul>
+                                            <li><a href="/index">Home</a></li>
+                                            <li><a href="#">Categories</a>
+                                                <ul>
+                                                {% for category in categories %}
+                                                    <li><a href="/product-grid/{{category.name}}/1">{{category.name}}</a></li>
+                                                {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li><a href="#htc__footer">contact</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-lg-1 col-sm-3 col-xs-4">
+                                <div class="header__right">
+                                    {% if g.user %}
+                                        <div class="header__search">
+                                            <a class="header__sell" href="/product-sell">Sell</a>
+                                        </div>
+                                    {% endif %}
+                                    <div class="header__search search search__open">
+                                        <a href="#"><i class="icon-magnifier icons"></i></a>
+                                    </div>
+                                    <div class="header__account">
+                                        {% if g.user %}
+                                        <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icons"></i></a>
+                                        <div id="drop_login" class="dropdown-menu">
+                                            <a href="/wishlist" class="logout">Wishlist</a>
+                                            <br>
+                                            <a href="/profile" class="logout">Profile</a>
+                                            <br>
+                                            <a href="/logout" class="logout">Logout</a>
+                                        </div>
+                                        {% else %}
+                                            <a data-toggle="modal" data-target="#loginModal"><i class="icon-user icons"></i></a>
+                                                  <!-- The Login Modal -->
+                                                  <div class="modal fade" id="loginModal">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                      <div class="modal-content">
+
+                                                        <div class="modal-header">
+                                                          <button type="button" class="close" data-dismiss="modal">×</button>
+                                                            <ul class="nav nav-tabs" id="tabContent">
+                                                                <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+                                                                <li><a href="#register" data-toggle="tab">Register</a></li>
+                                                            </ul>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+                                                              <div class="tab-content">
+                                                                    <div class="tab-pane active" id="login">
+                                                                         <form id="form_login" class="justify-content-center" method="POST" action="/index">
+                                                                             {{formlog.hidden_tag()}}
+                                                                             <fieldset class="form-group">
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formlog.email, type="email")}}
+                                                                                     <span class="error" aria-live="polite"></span>
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formlog.password, minlength="6", maxlength="50")}}
+                                                                                 </div>
+                                                                                 <div>
+                                                                                     <a href="#recover_password" data-toggle="tab" class="attrb_a_form control-label">Recover password</a>
+                                                                                 </div>
+                                                                                 <div>
+                                                                                     <a href="#resend_email" data-toggle="tab" class="attrb_a_form control-label">Resend registration email</a>
+                                                                                 </div>
+                                                                             </fieldset>
+                                                                             <div class="form-group">
+                                                                                 {{ wtf.form_field(formlog.submitlog, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
+                                                                             </div>
+                                                                         </form>
+                                                                    </div>
+                                                                      <div class="tab-pane" id="recover_password">
+                                                                             <form id="form_recover" class="justify-content-center" method="POST" action="/index">
+                                                                                 {{formrecover.hidden_tag()}}
+                                                                                 <fieldset class="form-group">
+                                                                                     <div class="form-group">
+                                                                                         {{ wtf.form_field(formrecover.email, type="email")}}
+                                                                                         <span class="error" aria-live="polite"></span>
+                                                                                     </div>
+                                                                                     <div>
+                                                                                         <a href="#login" data-toggle="tab" class="control-label attrb_a_form">Back</a>
+                                                                                     </div>
+                                                                                 </fieldset>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formrecover.submitrec, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
+                                                                                 </div>
+                                                                             </form>
+                                                                        </div>
+                                                                        <div class="tab-pane" id="resend_email">
+                                                                             <form id="form_resend" class="justify-content-center" method="POST" action="/index">
+                                                                                 {{formresend.hidden_tag()}}
+                                                                                 <fieldset class="form-group">
+                                                                                     <div class="form-group">
+                                                                                         {{ wtf.form_field(formresend.email, type="email")}}
+                                                                                         <span class="error" aria-live="polite"></span>
+                                                                                     </div>
+                                                                                     <div>
+                                                                                         <a href="#login" data-toggle="tab" class="control-label attrb_a_form">Back</a>
+                                                                                     </div>
+                                                                                 </fieldset>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formresend.submitresend, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
+                                                                                 </div>
+                                                                             </form>
+                                                                        </div>
+                                                                    <div class="tab-pane" id="register">
+                                                                         <form id="form_register" class="justify-content-center" method="POST" action="/index">
+                                                                             {{formreg.hidden_tag()}}
+                                                                             <fieldset class="form-group">
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.fname, minlength="4", maxlength="25")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.lname, minlength="4", maxlength="25")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.bdate, minlength="8", maxlength="8")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.email, type="email", minlength="6", maxlength="50")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.password_reg, minlength="6", maxlength="50")}}
+                                                                                 </div>
+                                                                                 <div class="form-group">
+                                                                                     {{ wtf.form_field(formreg.confirm_password)}}
+                                                                                 </div>
+                                                                             </fieldset>
+                                                                             <div class="form-group">
+                                                                                 {{ wtf.form_field(formreg.submitreg, button_map={'submit':'success'}, class="btn btn-lg btn-primary btn-block fr__btn") }}
+                                                                             </div>
+                                                                         </form>
+                                                                    </div>
+                                                              </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="htc__shopping__cart">
+                                        <a class="cart__menu" onclick="fillCart()"><i class="icon-handbag icons"></i></a>
+                                        <a href="#"><span id="cart_count" class="htc__qua">0</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-sm-2 col-xs-1">
+                                <div class="username_hello hidden-xs hidden-sm">
+                                    {% if g.user %}
+                                    <span>Hello, {{g.user["fname"]}}</span>
+                                    {% else %}
+                                    <span>Hello</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mobile-menu-area"></div>
+                </div>
+            </div>
+            <!-- End Mainmenu Area -->
+        </header>
+        <!-- End Header Area -->
+        <div class="body__overlay"></div>
+        <!-- Start Offset Wrapper -->
+        <div class="offset__wrapper">
+            <!-- Start Search Popap -->
+            <div class="search__area">
+                <div class="container" >
+                    <div class="row" >
+                        <div class="col-md-12" >
+                            <div class="search__inner">
+                                <form action="#" method="get">
+                                    <input placeholder="Search here... " type="text">
+                                    <button type="submit"></button>
+                                </form>
+                                <div class="search__close__btn">
+                                    <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Search Popap -->
+            <!-- Start Cart Panel -->
+            <div class="shopping__cart">
+                <div class="shopping__cart__inner">
+                    <div class="offsetmenu__close__btn">
+                        <a href="#"><i class="zmdi zmdi-close"></i></a>
+                    </div>
+                    <div id="cart_prod_session" class="shp__cart__wrap">
+
+                    </div>
+                    <ul class="shoping__total">
+                        <li class="subtotal">Subtotal:</li>
+                        <li id="totalPrice" class="total__price">€0.00</li>
+                    </ul>
+                    <ul class="shopping__btn">
+                        <li class="shp__checkout"><a href="/checkout">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Cart Panel -->
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div id="alert_form" class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+
+
+                <!-- End Blog Area -->
+        <!-- End Banner Area -->
+        <!-- Start Footer Area -->
+        <footer id="htc__footer">
+            <!-- Start Copyright Area -->
+            <div class="htc__copyright bg__cat--5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="copyright__inner">
+                                <p>Copyright© 2020 Capture. All right reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Copyright Area -->
+        </footer>
+        <!-- End Footer Style -->
+    </div>
+    <!-- Body main wrapper end -->
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+    <!-- jquery latest version -->
+    <script src="{{url_for('static', filename = 'js/vendor/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/vendor/jquery-3.4.1.min.js')}}"></script>
+    <!-- popper latest version -->
+    <script src="{{url_for('static', filename = 'js/vendor/popper.min.js')}}"></script>
+    <!-- Bootstrap framework js -->
+    <script src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+    <!-- All js plugins included in this file. -->
+    <script src="{{url_for('static', filename = 'js/plugins.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/slick.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/owl.carousel.min.js')}}"></script>
+    <!-- Waypoints.min.js. -->
+    <script src="{{url_for('static', filename = 'js/waypoints.min.js')}}"></script>
+    <!-- Main js file that contents all jQuery plugins activation. -->
+    <script src="{{url_for('static', filename = 'js/main.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/form.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/checkout-cart.js')}}"></script>
+    <script src="{{url_for('static', filename = 'js/wishlist.js')}}"></script>
+
+</body>
+
+</html>

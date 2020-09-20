@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block content %}
+
+        <!-- Start Contact Area -->
+        <section class="htc__contact__area ptb--100 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="section__title--2 text-center">
+                            <h2 class="title__line">Contact us</h2>
+                            <p>Fill free to contact us</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="sell_form col-m-12 col-sm-12 col-l-12 col-xs-12 col-xl-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="address">
+                                <div class="address__icon">
+                                    <i class="icon-location-pin icons"></i>
+                                </div>
+                                <div class="address__details">
+                                    <h2 class="ct__title">Lisbon</h2>
+                                    <p>666 9th Rua Marques Pombal, Lisbon, Portugal </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="address">
+                                <div class="address__icon">
+                                    <i class="icon-envelope icons"></i>
+                                </div>
+                                <div class="address__details">
+                                    <h2 class="ct__title">Email</h2>
+                                    <p>capture_services@capture.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="address">
+                                <div class="address__icon">
+                                    <i class="icon-phone icons"></i>
+                                </div>
+                                <div class="address__details">
+                                    <h2 class="ct__title">Phone Number</h2>
+                                    <p>123-6586-587456</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Start Brand Area -->
+        <div class="htc__brand__area bg__cat--4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ht__brand__inner">
+                            <ul class="brand__list owl-carousel clearfix">
+                                <li><a href="#"><img src="{{url_for('static', filename = 'images/brand/1.png')}}" alt="brand images"></a></li>
+                                <li><a href="#"><img src="{{url_for('static', filename = 'images/brand/2.png')}}" alt="brand images"></a></li>
+                                <li><a href="#"><img src="{{url_for('static', filename = 'images/brand/3.png')}}" alt="brand images"></a></li>
+                                <li><a href="#"><img src="{{url_for('static', filename = 'images/brand/4.png')}}" alt="brand images"></a></li>
+                                <li><a href="#"><img src="{{url_for('static', filename = 'images/brand/5.png')}}" alt="brand images"></a></li>
+                                <li><a href="#"><img src="{{url_for('static', filename = 'images/brand/5.png')}}" alt="brand images"></a></li>
+                                <li><a href="#"><img src="{{url_for('static', filename = 'images/brand/1.png')}}" alt="brand images"></a></li>
+                                <li><a href="#"><img src="{{url_for('static', filename = 'images/brand/2.png')}}" alt="brand images"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Brand Area -->
+        <!-- End Contact Area -->
+{% endblock content %}
