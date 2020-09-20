@@ -1,7 +1,7 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, \
     dummy, request, render_template, session, redirect, \
-    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getCategoryProducts
+    url_for, g, login, json, register, recoverPassword, resendEmail, flash, getCategoryProducts, getCategories
 
 
 @app.route("/contact", methods=['GET', 'POST'])
@@ -55,7 +55,7 @@ def contact():
             flash('Wrong inputs, try to register again', 'danger')
 
     return render_template('contact.html', title='Contact',
-                           categories=g.categories,
+                           categories=getCategories(),
                            tags=dummy.tags,
                            sizes=dummy.sizes,
                            formlog=formlog,

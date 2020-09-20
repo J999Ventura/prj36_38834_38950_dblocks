@@ -1,7 +1,7 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, dummy, \
     request, render_template, session, redirect, url_for, g, login, \
-    json, register, recoverPassword, resendEmail, flash, getAllUserProducts, getProductsForsale
+    json, register, recoverPassword, resendEmail, flash, getAllUserProducts, getProductsForsale, getCategories
 
 
 @app.route('/profile')
@@ -56,7 +56,7 @@ def profile():
 
     if g.user:
         return render_template('profile.html', title='Profile',
-                               categories=g.categories,
+                               categories=getCategories(),
                                userProducts=getAllUserProducts(3),
                                purchasedProducts=getProductsForsale(3),
                                formlog=formlog,

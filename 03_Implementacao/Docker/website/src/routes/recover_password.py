@@ -1,7 +1,7 @@
 from . import app
 from . import RegisterForm, LoginForm, ResendEmailForm, RecoverForm, RecoverPasswordForm, \
     dummy, request, render_template, session, redirect, \
-    url_for, g, login, json, register, recoverPassword, resendEmail, flash, setNewPassword
+    url_for, g, login, json, register, recoverPassword, resendEmail, flash, setNewPassword, getCategories
 
 @app.route('/recover-password/{token}', methods=['GET', 'POST'])
 def recover_password(token):
@@ -64,7 +64,7 @@ def recover_password(token):
 
 
     return render_template('recover-password.html', title='Home',
-                           categories=g.categories,
+                           categories=getCategories(),
                            formlog=formlog,
                            formreg=formreg,
                            formresend=formresend,
