@@ -1,11 +1,8 @@
-from . import User_model, send_request, api_url, json
+from . import api_url, get_request
 from flask import jsonify
 
 def setConfirmEmail(token):
-    json = {"token": token}
-    response_json, response_status_code = send_request(api_url+"/auth/confirmemail", json)
-
-    if response_status_code == 200:
-        return True
-
-    return False
+    response_json, response_status_code = get_request(api_url + "/auth/verify?token=" + token)
+    if response_status_code == 201:
+        return "Success! Your account is now verified", "success"
+    return response_json['message'], "danger"

@@ -50,15 +50,15 @@ def register():
     user = Users.lookup(email)  # verifica se o user ja existe em caso de nao existir retorna none
     if not user:
         new_user = None
-        try:
-            password = guard.hash_password(password)
-            new_user = Users.create_user(first_name, last_name, email, password, birth_date)
-            guard.send_registration_email(email, user=new_user)
-            return Response(json.dumps({'message': 'User successfully registered'}), status=201,
+        #try:
+        password = guard.hash_password(password)
+        new_user = Users.create_user(first_name, last_name, email, password, birth_date)
+        guard.send_registration_email(email, user=new_user)
+        return Response(json.dumps({'message': 'User successfully registered'}), status=201,
                             mimetype='application/json')
-        except(ValueError, KeyError, PraetorianError, ClaimCollisionError, exc.SQLAlchemyError):
-            Users.remove_user(new_user)
-            return Response(json.dumps({'message': 'Unable to register user'}), status=404, mimetype='application/json')
+        #except(ValueError, KeyError, PraetorianError, ClaimCollisionError, exc.SQLAlchemyError):
+        #    Users.remove_user(new_user)
+        #    return Response(json.dumps({'message': 'Unable to register user'}), status=204, mimetype='application/json')
     return Response(json.dumps({'message': 'User already exists'}), status=202, mimetype='application/json')
 
 
@@ -70,7 +70,7 @@ def active():
         user.active_user()
         return Response(json.dumps({'message': 'User is now valid'}), status=201, mimetype='application/json')
     except (ValueError, KeyError, PraetorianError):
-        return Response(json.dumps({'message': 'Cannot verify the user'}), status=400, mimetype='application/json')
+        return Response(json.dumps({'message': 'Cannot verify the user'}), status=204, mimetype='application/json')
 
 
 @auth_bp.route('/resetpwd', methods=['POST'])
