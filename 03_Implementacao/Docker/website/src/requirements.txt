@@ -10,7 +10,7 @@ flask-wtf
 gunicorn==20.0.4
 inflection==0.3.1
 itsdangerous==1.1.0
-jinja2==2.11.2
+jinja2==2.11.3
 markupsafe==1.1.1
 passlib==1.7.2
 psycopg2==2.8.5
